@@ -1,0 +1,3043 @@
+I think we should treat this like a real software project instead of "building a portfolio." That means we first define the stack, component sources, design rules, and then build one phase at a time.
+
+Tech Stack
+Category	Technology	Purpose
+Frontend	React 19	Main framework
+Language	TypeScript	Type safety
+Build Tool	Vite	Fast development
+Styling	Tailwind CSS	Styling and layout
+Animations	Framer Motion	Page transitions and animations
+Icons	Lucide React	Modern icon set
+Fonts	Space Grotesk + Inter	Headings and body text
+Package Manager	npm	Dependency management
+Component Libraries
+
+These should be your only UI component sources unless something absolutely cannot be found.
+
+Library	Purpose
+React Bits	Animated backgrounds, hero effects, text animations, buttons, interactive components
+Aceternity UI	Cards, timelines, grids, hover effects, glassmorphism, spotlight effects
+Supporting Libraries
+Library	Link	Purpose
+Framer Motion	Smooth page transitions and animations	
+Tailwind CSS	Utility-first styling	
+Lucide Icons	Icons	
+React Router (optional)	Only if needed later	
+Vite	Project bundler	
+Core Design Rules
+
+These are non-negotiable.
+
+One universal animated background.
+Fixed glassmorphism navbar.
+Horizontal panel transitions.
+Vertical scrolling inside each panel.
+Expandable cards for all detailed content.
+Dark AI-inspired theme.
+Mobile responsive from day one.
+No page reloads.
+Project Structure
+src/
+
+components/
+    navbar/
+    background/
+    cards/
+    buttons/
+    animations/
+    modals/
+
+pages/
+    Home/
+    Education/
+    Experience/
+    Projects/
+    Contact/
+
+assets/
+    images/
+    videos/
+    certificates/
+
+hooks/
+
+utils/
+Phase 1 — Foundation
+Goal
+
+Build the application's framework.
+
+Tasks
+Create Vite project
+Configure Tailwind CSS
+Install dependencies
+Create folder structure
+Configure fonts
+Create design tokens
+Universal background
+Fixed navbar
+Horizontal page system
+Responsive layout
+Theme colors
+
+Deliverable: A working application shell where panels slide horizontally.
+
+Phase 2 — Home
+Components
+Hero
+Animated heading
+Profile image
+CTA buttons
+Social links
+Quick statistics
+Animated background overlays
+
+Deliverable: Finished Home panel.
+
+Phase 3 — Education
+Components
+College section
+College image
+Academic information
+Certification grid
+Expandable certificate viewer
+
+Deliverable: Complete Education panel.
+
+Phase 4 — Experience
+Components
+Timeline
+Experience cards
+Research section
+Achievement cards
+Expandable experience details
+
+Deliverable: Complete Experience panel.
+
+Phase 5 — Projects (Highest Priority)
+Components
+Responsive project grid
+Minimal project tiles
+Expandable project viewer
+Image carousel
+Video support
+GitHub button
+LinkedIn button
+Tech stack section
+Architecture section
+Features section
+
+Deliverable: Your flagship showcase panel.
+
+Phase 6 — Contact
+Components
+Contact card
+Email
+Phone
+GitHub
+LinkedIn
+Resume download
+Copy-to-clipboard buttons
+
+Deliverable: Fully functional contact page.
+
+Phase 7 — Polish
+Tasks
+Loading animation
+Hover effects
+Micro-interactions
+Performance optimization
+Accessibility review
+SEO metadata
+Responsive testing
+Deployment to Netlify
+Assets to Prepare
+
+Before building, gather everything in one place:
+
+Home
+Professional profile photo
+Resume (PDF)
+Education
+College photo
+University logo
+Certificates (PNG/PDF)
+Experience
+Training photos
+Research images
+Achievement photos
+Event certificates
+Projects
+
+For every project, prepare:
+
+Hero image
+3–6 screenshots
+Demo video or GIF (optional)
+GitHub link
+Live demo (if available)
+LinkedIn post (if available)
+Short description
+Full technical description
+Tech stack
+Features list
+Final Architecture
+Portfolio
+
+├── Universal Background
+├── Fixed Navbar
+│
+├── Home
+│
+├── Education
+│
+├── Experience
+│
+├── Projects
+│
+└── Contact
+
+Each panel has its own vertical content, while switching between panels always uses a smooth horizontal slide. That gives you the application-like experience you're aiming for while keeping the implementation organized and scalable.
+
+
+
+
+
+PHASE 2 — HOME PANEL SPECIFICATION
+Objective
+
+The Home panel is the first impression of the portfolio.
+
+Within 5–10 seconds, a recruiter should understand:
+
+Who you are
+What you specialize in
+What kind of engineer you are
+Where to find your work
+How to contact you
+
+The page should feel like the landing page of a modern AI startup rather than a personal portfolio.
+
+General Layout
+
+The Home panel occupies the entire browser width and uses the common universal animated background shared across the entire portfolio.
+
+The navbar remains fixed at the top.
+
+The Home panel is divided into two columns.
+
+--------------------------------------------------
+
+Navbar (Fixed)
+
+--------------------------------------------------
+
+Left Side              Right Side
+
+Hero Text              Profile Photo
+
+Description            Animated Background
+
+Buttons                Decorative AI Elements
+
+Quick Stats
+
+Social Links
+
+--------------------------------------------------
+
+Desktop uses approximately a 55/45 split.
+
+Tablet stacks slightly.
+
+Mobile becomes a single column.
+
+Universal Background
+Purpose
+
+The background should create atmosphere.
+
+It should never distract from the content.
+
+This background remains identical across every panel.
+
+React Bits Component
+
+Use:
+
+Animated Background
+
+Possible choices include:
+
+Aurora Background
+Animated Grid
+Dot Background
+Particle Background
+Gradient Mesh
+
+The animation must be subtle.
+
+No extremely bright colors.
+
+No fast movements.
+
+No heavy parallax.
+
+Hero Section
+
+This is the largest section on the page.
+
+Located on the left.
+
+Contains:
+
+Large Heading
+
+Subtitle
+
+Description
+
+Buttons
+
+Heading
+
+Large typography.
+
+Example structure
+
+Hari Krishna
+
+Applied AI Engineer
+
+The name should be significantly larger than every other text on the page.
+
+React Bits Component
+
+Use:
+
+Text Reveal Animation
+
+Purpose
+
+Letters animate only once when the page first loads.
+
+Afterwards the heading remains static.
+
+Avoid repeating animations.
+
+Subtitle
+
+Placed directly below the heading.
+
+Example
+
+Applied AI Engineer
+
+Machine Learning Engineer
+
+Computer Vision Developer
+
+One title only.
+
+Avoid listing too many roles.
+
+Description
+
+Two to three lines.
+
+Should communicate:
+
+AI
+Machine Learning
+Problem Solving
+Real-world systems
+
+Maximum length:
+
+Three lines.
+
+CTA Buttons
+
+Located below the description.
+
+Spacing between buttons should be generous.
+
+Buttons:
+
+View Projects
+Download Resume
+GitHub
+LinkedIn
+React Bits Component
+
+Use:
+
+Magnetic Button
+
+or
+
+Animated Button
+
+Purpose
+
+Small hover animations.
+
+Slight magnetic attraction.
+
+Glow on hover.
+
+No excessive bouncing.
+
+Social Icons
+
+Located below the buttons.
+
+Include
+
+GitHub
+
+LinkedIn
+
+Email
+
+Resume
+
+Component
+
+Glass Icon Buttons
+
+Hover
+
+Scale slightly
+
+Glow
+
+Tooltip
+
+Quick Statistics
+
+Placed below the hero.
+
+Displayed in a horizontal row.
+
+Cards should be compact.
+
+Example
+
+8+
+
+Projects
+
+---------------
+
+3+
+
+AI Models
+
+---------------
+
+Research
+
+---------------
+
+Certifications
+Aceternity Component
+
+Use
+
+Hover Cards
+
+or
+
+Bento Mini Cards
+
+Purpose
+
+Cards slightly lift on hover.
+
+Very subtle animation.
+
+Right Side
+
+The right half should be mostly visual.
+
+It should immediately communicate
+
+Technology
+
+AI
+
+Engineering
+
+Professionalism
+
+Profile Photo
+
+Professional image.
+
+Rounded corners.
+
+Not circular.
+
+Large.
+
+Should occupy most of the right side.
+
+Component
+
+Glass Card
+
+or
+
+Spotlight Card
+
+The image slightly lifts when hovered.
+
+Decorative Layer
+
+Behind the profile image.
+
+Use React Bits.
+
+Possible components
+
+Particles
+
+Aurora
+
+Animated Grid
+
+Gradient
+
+Floating Shapes
+
+The animation should remain behind the profile image.
+
+Small Floating Elements
+
+Around the profile image.
+
+Very subtle.
+
+Could include
+
+Python
+
+TensorFlow
+
+OpenCV
+
+React
+
+Docker
+
+Machine Learning
+
+Each appears inside a floating chip.
+
+Component
+
+Floating Badges
+
+Purpose
+
+Slow floating movement.
+
+Nothing distracting.
+
+Scroll Indicator
+
+Bottom of Home panel.
+
+Simple indicator.
+
+↓
+
+Explore
+
+This is optional but encourages users to continue.
+
+Motion Design
+
+Only animate once.
+
+Heading
+
+Fade + Slide
+
+Description
+
+Fade
+
+Buttons
+
+Fade
+
+Cards
+
+Staggered Fade
+
+Profile
+
+Scale + Fade
+
+Background
+
+Continuous subtle movement
+
+Color Palette
+
+Background
+
+Very dark blue
+
+Cards
+
+Dark gray-blue
+
+Primary Accent
+
+Bright cyan
+
+Secondary Accent
+
+Purple
+
+Text
+
+White
+
+Muted Text
+
+Gray
+
+Typography
+
+Headings
+
+Space Grotesk
+
+Body
+
+Inter
+
+Code
+
+JetBrains Mono
+
+Spacing
+
+The page should feel spacious.
+
+Avoid cramped layouts.
+
+Generous padding.
+
+Large whitespace around the hero.
+
+Responsiveness
+
+Desktop
+
+Two-column layout.
+
+Tablet
+
+Profile image shrinks.
+
+Buttons wrap.
+
+Statistics become two rows if necessary.
+
+Mobile
+
+Single-column layout.
+
+Profile image moves above or below the hero text.
+
+Buttons become full width.
+
+Statistics stack vertically.
+
+Accessibility
+
+Every button must have:
+
+Visible keyboard focus
+ARIA labels where appropriate
+Sufficient color contrast
+Descriptive alt text for the profile image
+Respect for prefers-reduced-motion by reducing or disabling non-essential animations
+Performance
+
+The Home panel is the first thing users load, so it should be lightweight.
+
+Lazy-load the profile image if appropriate.
+Keep background animations GPU-friendly.
+Avoid multiple overlapping particle systems.
+Animate with CSS transforms (translate, scale, opacity) rather than properties that trigger layout.
+Defer loading heavy assets (videos, large images) until later panels.
+Final User Experience
+
+The desired flow is:
+
+Portfolio Opens
+
+↓
+
+Universal Animated Background appears
+
+↓
+
+Navbar fades in
+
+↓
+
+Hero text reveals
+
+↓
+
+Profile image fades in
+
+↓
+
+Buttons appear
+
+↓
+
+Quick stats animate
+
+↓
+
+User immediately understands:
+"Who is this engineer?"
+
+↓
+
+Clicks "Projects"
+
+↓
+
+Entire content smoothly slides horizontally to the Projects panel
+Components to Source
+
+React Bits
+
+Animated Background (Aurora, Grid, Particles, or Gradient Mesh)
+Text Reveal Animation
+Magnetic or Animated Buttons
+Floating Badge/Chip effects (if available)
+
+Aceternity UI
+
+Spotlight or Glass Card for the profile image
+Hover Cards or Bento-style cards for the quick statistics
+Simple spotlight/glow effects for interactive elements
+
+The guiding principle for the Home panel is clarity over complexity. It should establish your identity immediately, use restrained motion, and naturally encourage visitors to explore the rest of the portfolio through the horizontal navigation system.
+
+
+
+
+PHASE 3 — EDUCATION PANEL SPECIFICATION
+Objective
+
+The Education panel should answer:
+
+"What is this person's academic background, and what have they learned outside the classroom?"
+
+Unlike the Home page, this panel is informational rather than promotional. It should feel organized, trustworthy, and easy to scan.
+
+The visual hierarchy should naturally lead visitors from your degree to your certifications without overwhelming them.
+
+Overall Layout
+
+The Education panel uses the same universal animated background as every other page.
+
+The navbar remains fixed.
+
+The page scrolls vertically only if necessary.
+
+The structure is:
+
+Education
+
+↓
+
+College
+
+↓
+
+Academic Information
+
+↓
+
+Certifications
+
+↓
+
+Expandable Certificate Viewer
+Section 1 — Education Header
+
+A simple title introducing the page.
+
+Example:
+
+Education
+Academic Journey & Professional Certifications
+React Bits Component
+Text Reveal
+
+Purpose:
+
+The heading fades in when the panel becomes active.
+
+Animation only plays once.
+
+No looping animations.
+
+Section 2 — College Information
+
+This is the main focus of the page.
+
+Layout:
+
+---------------------------------------------------
+
+College Image
+
+|
+
+College Name
+
+University
+
+Degree
+
+Duration
+
+CGPA
+
+Short Description
+
+---------------------------------------------------
+
+Desktop:
+
+40% image
+
+60% information
+
+Tablet:
+
+Image becomes smaller.
+
+Mobile:
+
+Image moves above the information.
+
+College Image
+
+Use a real image of your college.
+
+The image should immediately give visitors context.
+
+Aceternity Component
+
+Use:
+
+Spotlight Card
+
+or
+
+Glass Card
+
+Purpose:
+
+The card slightly lifts on hover.
+
+Soft glow around the edges.
+
+No dramatic animation.
+
+Academic Information
+
+Include:
+
+College Name
+
+University
+
+Degree
+
+Duration
+
+Final CGPA
+
+Short academic description
+
+Example structure:
+
+LBS College of Engineering
+
+APJ Abdul Kalam Technological University
+
+Bachelor of Technology
+
+Computer Science & Engineering
+
+CGPA
+
+Duration
+
+Focused on Machine Learning,
+Artificial Intelligence,
+Computer Vision,
+Software Engineering.
+
+Keep the description concise.
+
+Maximum:
+
+Three lines.
+
+Academic Detail Cards
+
+Instead of one paragraph, important information can be displayed as compact cards.
+
+Example:
+
+CGPA
+
+8.xx
+
+------------------
+
+Degree
+
+B.Tech CSE
+
+------------------
+
+University
+
+KTU
+
+------------------
+
+Graduation
+
+2026
+Aceternity Component
+
+Mini Hover Cards
+
+Purpose
+
+Slight hover animation.
+
+Consistent with Home statistics.
+
+Divider
+
+A smooth divider separates academics from certifications.
+
+Simple heading:
+
+Professional Certifications
+Section 3 — Certification Grid
+
+The certifications should be displayed as a responsive grid.
+
+Example
+
+□□□□□□□□□□□□□□□□
+
+Stanford ML
+
+□□□□□□□□□□□□□□□□
+
+NPTEL ML
+
+□□□□□□□□□□□□□□□□
+
+Cisco
+
+□□□□□□□□□□□□□□□□
+
+Google
+
+□□□□□□□□□□□□□□□□
+
+Future Certifications
+
+The grid automatically grows as new certifications are added.
+
+Certification Card
+
+Every certification follows the exact same format.
+
+Collapsed view:
+
+□□□□□□□□□□□□□□□□
+
+Provider Logo
+
+Certification Name
+
+□□□□□□□□□□□□□□□□
+
+No long descriptions.
+
+No buttons.
+
+The entire card is clickable.
+
+Aceternity Component
+
+Hover Card
+
+Purpose
+
+Small lift
+
+Glow
+
+Border animation
+
+Same behavior as Project cards.
+
+Clicking a Certification
+
+When clicked
+
+The card expands.
+
+No page navigation.
+
+No separate page.
+
+No browser reload.
+
+Exactly the same interaction pattern used throughout the portfolio.
+
+Expanded Certificate Viewer
+
+Animation
+
+Card
+
+↓
+
+Expand
+
+↓
+
+Certificate Details
+
+Background slightly darkens.
+
+The viewer becomes the focus.
+
+Layout
+--------------------------------------------------
+
+Certificate Image
+
+|
+
+Certificate Title
+
+Provider
+
+Completion Date
+
+Credential ID
+
+Description
+
+Skills Learned
+
+Buttons
+
+--------------------------------------------------
+Left Side
+
+Contains
+
+Large certificate image
+
+or
+
+Certificate PDF preview
+
+The image should be zoomable if desired.
+
+Right Side
+
+Contains structured information.
+
+Order:
+
+Certificate Name
+
+Issuer
+
+Date
+
+Credential ID (optional)
+
+Description
+
+Skills Learned
+
+Button
+
+Skills Learned
+
+Instead of paragraphs
+
+Use badges.
+
+Example
+
+Python
+
+TensorFlow
+
+Regression
+
+Classification
+
+Neural Networks
+
+Model Evaluation
+Component
+
+Aceternity
+
+Badge Components
+
+Purpose
+
+Simple technology chips.
+
+Buttons
+
+Possible buttons
+
+View Credential
+
+Download Certificate
+
+Open Credential
+
+Only show buttons that exist.
+
+If no verification link exists
+
+Hide the button.
+
+Closing the Viewer
+
+Exactly like Projects.
+
+Supported methods
+
+Click outside
+
+Close button
+
+ESC key
+
+Mobile swipe down (optional)
+
+Responsive Behavior
+
+Desktop
+
+Four-column certification grid
+
+Tablet
+
+Two-column grid
+
+Mobile
+
+Single-column layout
+
+Expanded viewer becomes full screen.
+
+Motion Design
+
+Heading
+
+Fade
+
+College card
+
+Slide
+
+Certification cards
+
+Staggered fade
+
+Expansion
+
+Smooth scale
+
+Closing
+
+Reverse animation
+
+No excessive motion.
+
+Accessibility
+
+Every certification card should:
+
+Be keyboard focusable
+Support Enter and Space to open
+Include descriptive alt text for certificate images
+Trap keyboard focus inside the expanded viewer until it is closed
+Return focus to the originating card when the viewer closes
+Performance
+Lazy-load certificate images.
+Use thumbnail images in the grid and load the full-resolution image only when expanded.
+Virtualization is unnecessary unless you eventually have dozens of certifications.
+Keep expansion animations transform-based for smooth performance.
+Final User Experience
+User opens Education
+
+↓
+
+Heading appears
+
+↓
+
+College card fades in
+
+↓
+
+Academic details appear
+
+↓
+
+Scroll
+
+↓
+
+Certification grid
+
+↓
+
+User clicks Stanford ML
+
+↓
+
+Card expands
+
+↓
+
+Reads details
+
+↓
+
+Views certificate
+
+↓
+
+Closes
+
+↓
+
+Clicks Cisco
+
+↓
+
+Reads details
+
+↓
+
+Continues browsing
+Components to Source
+React Bits
+Text Reveal for section heading
+Optional subtle divider animation
+Optional background accent effects (shared with the rest of the site)
+Aceternity UI
+Spotlight/Glass Card for the college section
+Hover Cards for certification tiles
+Badge/Chip components for skills learned
+Expandable modal/card pattern (adapted to match the Projects interaction)
+Design Philosophy
+
+The Education panel should feel like a digital academic portfolio, not a résumé. It should communicate credibility through clean structure, restrained animations, and a consistent interaction pattern. Visitors should be able to understand your educational background in under a minute while still having the option to inspect individual certifications in depth.
+
+
+
+PHASE 4 — EXPERIENCE PANEL SPECIFICATION
+Objective
+
+The Experience panel should answer one question:
+
+"How has this engineer grown, and what real-world experience supports their skills?"
+
+Unlike a traditional résumé, this page is not limited to jobs. It showcases everything that demonstrates professional growth:
+
+Training
+Research
+Industrial exposure
+Technical events
+Workshops
+Hackathons
+Competitions
+Paper presentations
+Achievements
+Future internships/freelance work
+
+Think of this page as your engineering journey.
+
+Overall Layout
+
+The Experience panel follows the same application structure.
+
+Universal animated background
+Fixed navbar
+Vertical scrolling inside the panel
+Expandable cards
+
+Structure:
+
+Experience
+
+↓
+
+Journey Timeline
+
+↓
+
+Professional Experience
+
+↓
+
+Research
+
+↓
+
+Achievements
+
+↓
+
+Expandable Detail Viewer
+Section 1 — Experience Header
+
+Simple title.
+
+Example:
+
+Experience
+
+Engineering Journey
+React Bits Component
+Text Reveal
+
+Purpose:
+
+Animate the title once when entering the Experience panel.
+
+No looping animations.
+
+Section 2 — Engineering Journey Timeline
+
+The timeline tells your story before visitors read any details.
+
+Instead of a wall of text, they immediately understand your progression.
+
+Example:
+
+Started B.Tech
+
+↓
+
+Programming Fundamentals
+
+↓
+
+Machine Learning
+
+↓
+
+Deep Learning
+
+↓
+
+Research
+
+↓
+
+Professional Training
+
+↓
+
+Present
+
+The timeline can be updated throughout your career.
+
+Later additions might include:
+
+Internship
+Full-time Job
+Freelancing
+Open Source
+Certifications
+Promotions
+Aceternity Component
+Timeline Component
+
+Purpose
+
+Animated vertical timeline.
+
+Each node expands slightly on hover.
+
+Current stage highlighted.
+
+Section 3 — Professional Experience
+
+Below the timeline.
+
+This section uses expandable cards.
+
+Grid example:
+
+□□□□□□□□□□□□□□□□
+
+LTIMindtree Training
+
+Short Description
+
+□□□□□□□□□□□□□□□□
+
+Research Experience
+
+Short Description
+
+□□□□□□□□□□□□□□□□
+
+Open Source
+
+Short Description
+
+□□□□□□□□□□□□□□□□
+
+Future Internship
+
+Short Description
+
+Only two lines visible.
+
+Entire card is clickable.
+
+Experience Card
+
+Collapsed
+
+Contains:
+
+Title
+
+Organization
+
+One-line summary
+
+Example
+
+LTIMindtree
+
+Professional Training Program
+
+Learning enterprise software development.
+Aceternity Component
+
+Hover Card
+
+Purpose
+
+Small hover elevation
+
+Glow
+
+Border animation
+
+Exactly the same behavior used in
+
+Projects
+
+Certifications
+
+Expanded Experience Viewer
+
+When clicked
+
+Animation
+
+Card
+
+↓
+
+Expand
+
+↓
+
+Detail Viewer
+Layout
+----------------------------------------------------
+
+Photo
+
+|
+
+Title
+
+Organization
+
+Duration
+
+Role
+
+Description
+
+Responsibilities
+
+Technologies
+
+Key Learnings
+
+----------------------------------------------------
+Left Side
+
+Contains
+
+Training photo
+
+Company logo
+
+Workshop image
+
+Research poster
+
+Conference image
+
+Event photo
+
+Use whichever best represents the experience.
+
+Right Side
+
+Information order
+
+Title
+
+Organization
+
+Duration
+
+Role
+
+Description
+
+Responsibilities
+
+Skills Learned
+
+Key Takeaways
+
+Buttons (optional)
+
+Technology Badges
+
+Instead of paragraphs
+
+Use badges.
+
+Example
+
+Python
+
+TensorFlow
+
+OpenCV
+
+React
+
+Git
+
+Linux
+Component
+
+Aceternity
+
+Badge Components
+
+Section 4 — Research
+
+This deserves its own subsection because research is a differentiator for AI/ML roles.
+
+Example layout:
+
+Research
+
+↓
+
+Research Card
+
+↓
+
+Expand
+
+Collapsed
+
+SlipSense Research
+
+AI-based Landslide Prediction
+
+Conference Paper
+Expanded Research Viewer
+
+Layout
+
+Poster
+
+|
+
+Research Title
+
+Conference
+
+Abstract
+
+Methodology
+
+Contribution
+
+Results
+
+Publication
+
+Buttons
+
+Buttons
+
+View Paper
+GitHub
+Presentation Slides (if available)
+Section 5 — Achievements
+
+The final section.
+
+This highlights accomplishments beyond coursework.
+
+Examples:
+
+Hackathons
+Coding competitions
+Workshops
+Conferences
+Technical events
+Awards
+Paper presentations
+Achievement Grid
+□□□□□□□□□□□□□□□□
+
+Hackathon
+
+Runner-up
+
+□□□□□□□□□□□□□□□□
+
+Workshop
+
+Participation
+
+□□□□□□□□□□□□□□□□
+
+Conference
+
+Paper Presented
+
+□□□□□□□□□□□□□□□□
+
+Technical Event
+
+Winner
+
+Each card is expandable.
+
+Expanded Achievement Viewer
+
+Layout
+
+------------------------------------------------
+
+Photo
+
+|
+
+Event
+
+Date
+
+Organizer
+
+Achievement
+
+Description
+
+Certificate
+
+------------------------------------------------
+Gallery Support
+
+Some experiences may have multiple images.
+
+Instead of a single image
+
+Support
+
+Photo
+
+>
+
+Photo
+
+>
+
+Certificate
+
+>
+
+Group Picture
+
+A lightweight image carousel is sufficient.
+
+Responsive Design
+
+Desktop
+
+Two-column experience cards
+
+Large timeline
+
+Tablet
+
+Timeline narrows
+
+Cards become two columns
+
+Mobile
+
+Single-column cards
+
+Timeline simplified
+
+Expanded viewer becomes full screen
+
+Motion Design
+
+Timeline
+
+Fade + draw animation
+
+Cards
+
+Staggered fade
+
+Expansion
+
+Scale
+
+Images
+
+Fade
+
+Close
+
+Reverse animation
+
+Everything should remain subtle.
+
+Accessibility
+Timeline entries should be keyboard accessible.
+Cards should open with Enter or Space.
+Expanded viewer traps keyboard focus until closed.
+Images need descriptive alt text.
+Support reduced-motion preferences by simplifying timeline and card animations.
+Performance
+Lazy-load event photos and gallery images.
+Use compressed thumbnails for the grid.
+Load full-size images only inside the expanded viewer.
+Keep the timeline lightweight with CSS/SVG animations rather than heavy JavaScript.
+Final User Experience
+User enters Experience
+
+↓
+
+Title animates
+
+↓
+
+Timeline appears
+
+↓
+
+User understands career progression
+
+↓
+
+Scroll
+
+↓
+
+Experience cards
+
+↓
+
+Clicks LTIMindtree
+
+↓
+
+Viewer expands
+
+↓
+
+Reads details
+
+↓
+
+Closes
+
+↓
+
+Scrolls
+
+↓
+
+Research
+
+↓
+
+Reads conference work
+
+↓
+
+Scrolls
+
+↓
+
+Achievements
+
+↓
+
+Views photos and certificates
+
+↓
+
+Moves to Projects
+Components to Source
+React Bits
+Text Reveal
+Section heading animation.
+Subtle Background Effects
+Shared universal animated background.
+Optional Decorative Motion
+Small floating accent elements if they fit the overall design.
+Aceternity UI
+Timeline Component
+Vertical engineering journey timeline.
+Hover Cards
+Experience cards.
+Research cards.
+Achievement cards.
+Spotlight/Glass Card
+Expanded detail viewer container.
+Badge Components
+Technologies and skills used.
+Image Container/Card
+For photos, certificates, and research posters.
+Design Philosophy
+
+This page should feel like a career timeline rather than a résumé.
+
+The visitor should leave with three impressions:
+
+Steady Growth — they can clearly see how your skills have evolved.
+Real Experience — you've applied your knowledge through training, research, and technical activities.
+Potential — even if you're early in your career, the structure is designed to grow with you. New jobs, internships, publications, and achievements can be added simply by creating another expandable card without changing the overall design.
+
+
+PHASE 5 — PROJECTS PANEL SPECIFICATION
+Objective
+
+This is the most important page in the entire portfolio.
+
+If a recruiter spends 80% of their time anywhere, it should be here.
+
+Everything else (Home, Education, Experience) exists to answer who you are.
+
+The Projects page answers:
+
+"Can this person actually build software?"
+
+This page should feel like a project showcase application, not a gallery.
+
+Every interaction should encourage exploration.
+
+Design Philosophy
+
+The Projects page should not overwhelm visitors with information immediately.
+
+Instead, follow a two-step interaction:
+
+Discover → Browse clean project tiles.
+Explore → Click a tile to reveal a full project case study.
+
+This keeps the interface uncluttered while allowing unlimited technical depth.
+
+Overall Layout
+
+The Projects panel uses the same universal background and fixed navbar.
+
+Structure:
+
+Projects
+
+↓
+
+Featured Project Grid
+
+↓
+
+Expandable Project Viewer
+
+The page grows vertically as new projects are added.
+
+No redesign is ever required.
+
+Section 1 — Header
+
+Simple title.
+
+Example
+
+Projects
+
+Engineering Portfolio
+
+Optional subtitle
+
+Explore selected AI, Machine Learning, Computer Vision, and Software Engineering projects.
+
+React Bits Component
+Text Reveal
+
+Purpose
+
+Animate the page title once.
+
+Section 2 — Project Grid
+
+This is the heart of the page.
+
+Instead of long cards...
+
+Use compact Project Tiles.
+
+Example
+
+□□□□□□□□□□□□□□□□□□□□
+
+SlipSense
+
+AI-powered landslide prediction.
+
+□□□□□□□□□□□□□□□□□□□□
+
+AI Home Security
+
+Real-time intelligent surveillance.
+
+□□□□□□□□□□□□□□□□□□□□
+
+Malware Sandbox
+
+Dynamic malware analysis.
+
+□□□□□□□□□□□□□□□□□□□□
+
+AI HR Interviewer
+
+Interview automation platform.
+Project Tile Design
+
+Every project tile should contain ONLY
+
+Project Name
+
+Short Description
+
+Nothing else.
+
+No GitHub
+
+No demo
+
+No badges
+
+No screenshots
+
+No buttons
+
+No statistics
+
+The card itself is the button.
+
+Why?
+
+Because the tile's job is
+
+NOT
+
+to explain the project.
+
+Its job is
+
+to make people click.
+
+Aceternity Component
+
+Hover Card
+
+Behavior
+
+Small lift
+
+Border glow
+
+Soft shadow
+
+Cursor changes
+
+Optional
+
+Small arrow appears
+
+Click to Explore →
+Grid Layout
+
+Desktop
+
+2 or 3 columns
+
+Tablet
+
+2 columns
+
+Mobile
+
+1 column
+
+Automatically grows.
+
+Example
+
+□□□□□□□□ □□□□□□□□
+
+□□□□□□□□ □□□□□□□□
+
+□□□□□□□□ □□□□□□□□
+
+Infinite scalability.
+
+Clicking a Project
+
+This is the defining interaction of the portfolio.
+
+The card does NOT open another page.
+
+It expands.
+
+Animation
+
+Small Card
+
+↓
+
+Growing
+
+↓
+
+Large Detail Viewer
+
+The transition should feel fluid, almost like opening an application window.
+
+Background
+
+When expanded
+
+Background softly darkens
+
+Everything behind becomes slightly blurred
+
+Focus shifts entirely to the project.
+
+Expanded Viewer Layout
+
+Large split layout.
+
+---------------------------------------------------------
+
+Media Viewer
+
+|
+
+Project Information
+
+---------------------------------------------------------
+
+Desktop
+
+50 / 50
+
+Tablet
+
+45 / 55
+
+Mobile
+
+Single column
+
+Media first
+
+Information second
+
+Left Side — Media Viewer
+
+This side showcases the project visually.
+
+Supported media:
+
+Screenshots
+UI mockups
+Architecture diagrams
+GIF demonstrations
+Videos
+Future demos
+Gallery
+
+Instead of tabs.
+
+Use a carousel.
+
+Example
+
+Screenshot 1
+
+>
+
+Screenshot 2
+
+>
+
+Architecture
+
+>
+
+GIF
+
+>
+
+Video
+
+Everything in one gallery.
+
+Aceternity Component
+
+Image Carousel
+
+or
+
+Animated Gallery
+
+Video Support
+
+If a project has
+
+Demo.mp4
+
+show
+
+Embedded player.
+
+If no video
+
+Hide it.
+
+Never show empty placeholders.
+
+GIF Support
+
+GIFs should autoplay.
+
+Muted.
+
+Loop.
+
+Used for
+
+Quick feature demonstrations.
+
+Image Zoom
+
+Optional.
+
+User clicks image.
+
+Zooms.
+
+Close.
+
+Right Side — Project Information
+
+Structured hierarchy.
+
+Never use one huge paragraph.
+
+Order
+Project Name
+
+Category
+
+Status
+
+Duration
+
+--------------------------------
+
+Overview
+
+--------------------------------
+
+Problem
+
+--------------------------------
+
+Solution
+
+--------------------------------
+
+Features
+
+--------------------------------
+
+Technology Stack
+
+--------------------------------
+
+Architecture
+
+--------------------------------
+
+Challenges
+
+--------------------------------
+
+Future Improvements
+
+--------------------------------
+
+Links
+Overview
+
+Two or three sentences.
+
+High-level explanation.
+
+Problem
+
+What problem was solved?
+
+Solution
+
+How was it solved?
+
+Features
+
+Bulleted list.
+
+Example
+
+Real-time prediction
+
+Image classification
+
+Dashboard
+
+Notifications
+
+REST API
+Technology Stack
+
+Badges.
+
+Example
+
+TensorFlow
+
+OpenCV
+
+Flask
+
+MongoDB
+
+React
+
+Docker
+Aceternity Component
+
+Badge Group
+
+Architecture
+
+Small section.
+
+Possible content
+
+System architecture image
+
+Pipeline
+
+Flow diagram
+
+Example
+
+Input
+
+↓
+
+Processing
+
+↓
+
+Model
+
+↓
+
+Prediction
+
+↓
+
+Dashboard
+Challenges
+
+Short section.
+
+Example
+
+Dataset imbalance
+
+Performance optimization
+
+Deployment issues
+
+Future Improvements
+
+Example
+
+Cloud deployment
+
+Mobile application
+
+Improved accuracy
+
+Real-time analytics
+
+Links
+
+Always placed at the bottom.
+
+Buttons.
+
+Possible buttons
+
+GitHub
+
+Live Demo
+
+LinkedIn Post
+
+Research Paper
+
+Documentation
+
+Hide buttons that don't exist.
+
+React Bits Component
+
+Magnetic Buttons
+
+Purpose
+
+Hover attraction
+
+Glow
+
+Consistent throughout portfolio.
+
+Closing the Viewer
+
+Supported methods
+
+Click outside
+
+ESC
+
+Close button
+
+Swipe down (mobile optional)
+
+Animation reverses.
+
+Uniform Data Model
+
+Every project should follow the exact same structure.
+
+Project
+
+├── Name
+
+├── Short Description
+
+├── Overview
+
+├── Problem
+
+├── Solution
+
+├── Features
+
+├── Tech Stack
+
+├── Media
+
+├── Architecture
+
+├── Challenges
+
+├── Future Work
+
+├── GitHub
+
+├── Demo
+
+└── LinkedIn
+
+This consistency makes adding future projects effortless.
+
+Motion Design
+
+Grid
+
+Fade
+
+Hover
+
+Lift
+
+Expansion
+
+Scale + grow
+
+Gallery
+
+Fade
+
+Buttons
+
+Glow
+
+Close
+
+Reverse animation
+
+No excessive animations.
+
+Accessibility
+Every project tile should be keyboard accessible.
+Enter or Space opens the expanded viewer.
+The expanded viewer traps keyboard focus until closed.
+Images and videos require descriptive captions or alt text.
+Media controls should remain usable with keyboard navigation.
+Respect reduced-motion preferences by simplifying expansion animations.
+Performance
+
+This page will likely contain the largest assets in the portfolio.
+
+Lazy-load all project media.
+Use optimized thumbnails in the project grid.
+Load videos only when the expanded viewer opens.
+Compress GIFs or consider MP4/WebM loops for better performance.
+Keep expansion animations GPU-accelerated using transforms.
+Final User Experience
+Portfolio
+
+↓
+
+Projects
+
+↓
+
+Grid appears
+
+↓
+
+User notices SlipSense
+
+↓
+
+Clicks
+
+↓
+
+Card expands
+
+↓
+
+Gallery loads
+
+↓
+
+Reads project
+
+↓
+
+Opens GitHub
+
+↓
+
+Returns
+
+↓
+
+Clicks AI Home Security
+
+↓
+
+Explores
+
+↓
+
+Continues browsing
+Components to Source
+React Bits
+Text Reveal
+Projects page heading.
+Magnetic Buttons
+GitHub
+Live Demo
+LinkedIn
+Documentation
+Shared Background Effects
+Universal animated background inherited from the application.
+Aceternity UI
+Hover Cards
+Project tiles.
+Expandable Card/Modal Pattern
+Full project viewer.
+Image Carousel
+Screenshots, GIFs, videos, architecture diagrams.
+Badge Components
+Technology stack chips.
+Spotlight/Glass Container
+Main expanded project viewer.
+Design Philosophy
+
+This page should feel like opening a collection of polished case studies, not scrolling through a list of repositories.
+
+The interaction pattern is intentionally simple:
+
+Browse → Click → Expand → Explore → Close
+
+That single interaction model keeps the interface intuitive while giving you the freedom to showcase each project in as much technical depth as you want. It also scales naturally as you add new projects over the years—every new project is just another tile in the grid that follows the same structure.
+
+
+PHASE 6 — CONTACT PANEL SPECIFICATION
+Objective
+
+The Contact panel should answer one question:
+
+"How can someone reach you immediately?"
+
+This page is not meant to be a traditional contact form with lots of fields. Since you're a developer showcasing a portfolio, the goal is to make it effortless for recruiters, hiring managers, or collaborators to contact you or view your professional profiles.
+
+The page should feel like a clean final destination, encouraging action without unnecessary friction.
+
+Overall Layout
+
+The Contact panel follows the same design language as the rest of the portfolio.
+
+Universal animated background
+Fixed navbar
+Minimal scrolling (ideally fits within one screen)
+Large, clear call-to-action
+
+Structure:
+
+Contact
+
+↓
+
+Call to Action
+
+↓
+
+Contact Cards
+
+↓
+
+Professional Profiles
+
+↓
+
+Footer
+Section 1 — Header
+
+Simple and inviting.
+
+Example:
+
+Let's Build Something Together
+
+Open to opportunities,
+collaborations,
+and interesting AI projects.
+React Bits Component
+Text Reveal
+
+Purpose
+
+Animate the heading once when entering the Contact panel.
+
+No repeated animations.
+
+Section 2 — Contact Card
+
+This becomes the centerpiece.
+
+Instead of listing plain text:
+
+Email
+
+Phone
+
+Github
+
+LinkedIn
+
+Display everything inside a beautiful glass card.
+
+Layout
+
+-----------------------------------
+
+Email
+
+Phone
+
+Location
+
+Availability
+
+-----------------------------------
+Aceternity Component
+Glass Card
+
+Purpose
+
+The card gently lifts on hover.
+
+Soft spotlight.
+
+Consistent with the rest of the portfolio.
+
+Contact Methods
+
+Each item should be its own interactive row.
+
+Example
+
+📧 Email
+
+hari@email.com
+
+[ Copy ] [ Email ]
+
+---------------------
+
+📱 Phone
+
++91 XXXXX XXXXX
+
+[ Copy ] [ Call ]
+
+---------------------
+
+📍 Location
+
+Kerala, India
+
+---------------------
+
+💼 Status
+
+Open to Opportunities
+
+Every action should require one click.
+
+Copy Buttons
+
+Every important value should have a copy button.
+
+Supported
+
+Email
+Phone
+LinkedIn URL (optional)
+GitHub URL (optional)
+
+After clicking
+
+Copied ✓
+
+appears for two seconds.
+
+React Bits Component
+
+Animated Button
+
+Purpose
+
+Smooth hover
+
+Copy animation
+
+Feedback state
+
+Section 3 — Professional Profiles
+
+Instead of plain icons
+
+Display profile cards.
+
+Example
+
+□□□□□□□□□□□□□□□□
+
+GitHub
+
+View Projects
+
+□□□□□□□□□□□□□□□□
+
+LinkedIn
+
+Professional Profile
+
+□□□□□□□□□□□□□□□□
+
+Resume
+
+Download PDF
+
+Every card is clickable.
+
+Aceternity Component
+
+Hover Cards
+
+Purpose
+
+Cards slightly elevate.
+
+Glow.
+
+Whole card is clickable.
+
+GitHub Card
+
+Collapsed
+
+GitHub
+
+Explore my repositories
+
+Click
+
+Opens GitHub profile.
+
+LinkedIn Card
+
+Collapsed
+
+LinkedIn
+
+Professional updates
+
+Click
+
+Opens LinkedIn.
+
+Resume Card
+
+Collapsed
+
+Resume
+
+Download PDF
+
+Click
+
+Downloads resume.
+
+Optional Email Card
+Email Me
+
+Start a conversation.
+
+Click
+
+Opens default mail client.
+
+Social Icons
+
+Below the cards.
+
+Simple row.
+
+GitHub
+
+LinkedIn
+
+Email
+
+Phone
+
+Hover
+
+Scale
+
+Glow
+
+Tooltip
+
+React Bits Component
+
+Magnetic Icons
+
+Purpose
+
+Small magnetic hover.
+
+Availability Badge
+
+A small status chip.
+
+Example
+
+🟢 Open to Opportunities
+
+or
+
+🟢 Available for AI/ML Roles
+
+This immediately tells recruiters you're actively looking.
+
+Aceternity Component
+
+Badge
+
+Purpose
+
+Small accent chip.
+
+QR Code (Optional Enhancement)
+
+A small QR code that links directly to your portfolio or LinkedIn.
+
+Useful for:
+
+Career fairs
+Conferences
+Presentations
+Printed resumes
+
+Place it unobtrusively in the corner of the contact card.
+
+Footer
+
+Minimal.
+
+Contains:
+
+Designed & Developed by
+
+Hari Krishna
+
+© 2026
+
+Optionally include:
+
+Built with
+
+React
+
+TypeScript
+
+Tailwind CSS
+
+Not necessary, but a nice touch.
+
+Responsive Design
+
+Desktop
+
+Contact card on left.
+
+Professional cards on right.
+
+Tablet
+
+Stack vertically.
+
+Mobile
+
+Everything becomes one column.
+
+Buttons become full width.
+
+Motion Design
+
+Heading
+
+Fade
+
+Cards
+
+Staggered fade
+
+Buttons
+
+Glow
+
+Icons
+
+Scale
+
+Copy
+
+Success animation
+
+Background
+
+Same universal animation.
+
+Accessibility
+Every contact action should be reachable via keyboard.
+Copy buttons should announce success through an aria-live region.
+Icons should have descriptive labels rather than relying on visuals alone.
+Maintain strong color contrast for text and action buttons.
+Ensure all links clearly indicate focus and hover states.
+Performance
+
+The Contact page should be the lightest panel in the application.
+
+Avoid heavy animations.
+Use SVG icons instead of large image assets.
+Preload the résumé PDF only if it's small; otherwise let it download on demand.
+Keep interactions instant and responsive.
+Final User Experience
+User enters Contact
+
+↓
+
+Heading appears
+
+↓
+
+Contact card fades in
+
+↓
+
+Professional cards appear
+
+↓
+
+Clicks GitHub
+
+↓
+
+Repository opens
+
+↓
+
+Returns
+
+↓
+
+Clicks Resume
+
+↓
+
+Downloads PDF
+
+↓
+
+Copies Email
+
+↓
+
+Sends message
+Components to Source
+React Bits
+Text Reveal
+Contact page heading.
+Animated Buttons
+Copy buttons.
+Email button.
+Resume download.
+Magnetic Icons
+GitHub.
+LinkedIn.
+Email.
+Phone.
+Aceternity UI
+Glass Card
+Main contact information.
+Hover Cards
+GitHub.
+LinkedIn.
+Resume.
+Email.
+Badge
+Availability status.
+Design Philosophy
+
+The Contact panel should be the cleanest page in the portfolio.
+
+There's no need for elaborate layouts or long descriptions. By the time a recruiter reaches this panel, they've already seen your work. The final step should simply remove every obstacle between them and contacting you.
+
+The overall interaction is:
+
+Arrive → Choose a contact method → One click → Connect
+
+That makes the experience feel effortless and leaves the portfolio with a polished, professional ending.

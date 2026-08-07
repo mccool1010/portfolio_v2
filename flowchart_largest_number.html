@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flowchart - Largest of Three Numbers</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .page {
+            width: 794px;
+            min-height: 1123px;
+            background: #fff;
+            padding: 40px 30px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        svg {
+            display: block;
+            margin: 0 auto;
+        }
+
+        @media print {
+            body { padding: 0; }
+            .page { 
+                width: 100%; 
+                padding: 30px 20px;
+                min-height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <h1>Flowchart: Find the Largest of Three Numbers</h1>
+        <p class="subtitle">Determine and display the largest among Number1, Number2, and Number3</p>
+        
+        <svg width="720" height="1020" viewBox="0 0 720 1020" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+                </marker>
+            </defs>
+
+            <!-- START -->
+            <ellipse cx="360" cy="35" rx="80" ry="28" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+            <text x="360" y="40" text-anchor="middle" font-size="14" font-weight="600" fill="#1b5e20">Start</text>
+
+            <!-- Arrow: Start -> Input -->
+            <line x1="360" y1="63" x2="360" y2="90" stroke="#333" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+            <!-- INPUT: Number1, Number2, Number3 -->
+            <polygon points="260,120 360,90 460,120 360,150" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+            <text x="360" y="118" text-anchor="middle" font-size="11" font-weight="500" fill="#0d47a1">Input Number1,</text>
+            <text x="360" y="133" text-anchor="middle" font-size="11" font-weight="500" fill="#0d47a1">Number2, Number3</text>
+
+            <!-- Arrow: Input -> Validate -->
+            <line x1="360" y1="150" x2="360" y2="180" stroke="#333" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+            <!-- DECISION: Are all inputs numbers? -->
+            <polygon points="360,185 500,230 360,275 220,230" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+            <text x="360" y="225" text-anchor="middle" font-size="11" font-weight="500" fill="#bf360c">Are all inputs</text>
+            <text x="360" y="240" text-anchor="middle" font-size="11" font-weight="500" fill="#bf360c">valid numbers?</text>
+
+            <!-- No branch (left) -> Display Error -->
+            <line x1="220" y1="230" x2="120" y2="230" stroke="#333" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+            <text x="170" y="222" text-anchor="middle" font-size="11" font-weight="600" fill="#c62828">No</text>
+
+            <!-- Display Error box -->
+            <rect x="20" y="210" width="100" height="40" rx="4" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+            <text x="70" y="228" text-anchor="middle" font-size="10" font-weight="500" fill="#b71c1c">Display</text>
+            <text x="70" y="241" text-anchor="middle" font-size="10" font-weight="500" fill="#b71c1c">"Invalid Input"</text>
+
+            <!-- Arrow: Error -> Stop1 -->
+            <line x1="70" y1="250" x2="70" y2="280" stroke="#333" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+            <!-- STOP (error path) -->
+            <ellipse cx="70" cy="305" rx="50" ry="22" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
+            <text x="70" y="310" text-anchor="middle" font-size="12" font-weight="600" fill="#b71c1c">Stop</text>
+
+            <!-- Yes branch (down) -->
+            <line x1="360" y1="275" x2="360" y2="320" stroke="#333" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+            <text x="372" y="295" font-size="11" font-weight="600" fill="#2e7d32">Yes</text>
+
+            <!-- DECISION: Is Number1 > Number2? -->
+            <polygon points="360,325 510,380 360,435 210,380" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+            <text x="360" y="375" text-anchor="middle" font-size="12" font-weight="500" fill="#bf360c">Is Number1 &gt;</text>
+            <text x="360" y="392" text-anchor="middle" font-size="12" font-weight="500" fill="#bf360c">Number2?</text>
+
+            <!-- Yes branch (left) -> Is Number1 > Number3? -->
+            <line x1="210" y1="380" x2="140" y2="380" stroke="#333" stroke-width="1.5"/>
+            <line x1="140" y1="380" x2="140" y2="490" stroke="#333" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+            <text x="175" y="372" text-anchor="middle" font-size="11" font-weight="600" fill="#2e7d32">Yes</text>
+
+            <!-- No branch (right) -> Is Number2 > Number3? -->
+            <line x1="510" y1="380" x2="580" y2="380" stroke="#333" stroke-width="1.5"/>
+            <line x1="580" y1="380" x2="580" y2="490" stroke="#333" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+            <text x="545" y="372" text-anchor="middle" font-size="11" font-weight="600" fill="#c62828">No</text>
+
+            <!-- DECISION: Is Number1 > Number3? (LEFT) -->
+            <polygon points="140,495 260,545 140,595 20,545" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+            <text x="140" y="540" text-anchor="middle" font-size="11" font-weight="500" fill="#bf360c">Is Number1 &gt;</text>
+            <text x="140" y="555" text-anchor="middle" font-size="11" font-weight="500" fill="#bf360c">Number3?</text>
+
+            <!-- DECISION: Is Number2 > Number3? (RIGHT) -->
+            <polygon points="580,495 700,545 580,595 460,545" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+            <text x="580" y="540" text-anchor="middle" font-size="11" font-weight="500" fill="#bf360c">Is Number2 &gt;</text>
+            <text x="580" y="555" text-anchor="middle" font-size="11" font-weight="500" fill="#bf360c">Number3?</text>
+
+            <!-- LEFT DECISION: Yes -> Display Number1 -->
+            <line x1="20" y1="545" x2="0" y2="545" stroke="#333" stroke-width="1.5"/>
+            <line x1="0" y1="545" x2="0" y2="640" stroke="#333" stroke-width="1.5"/>
+            <line x1="0" y1="640" x2="60" y2="640" stroke="#333" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+            <text x="10" y="575" font-size="11" font-weight="600" fill="#2e7d32">Yes</text>
+
+            <!-- Display Number1 is Largest -->
+            <rect x="60" y="618" width="160" height="44" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+            <text x="140" y="638" text-anchor="middle" font-size="11" font-weight="500" fill="#1b5e20">Display "Number1</text>
+            <text x="140" y="653" text-anchor="middle" font-size="11" font-weight="500" fill="#1b5e20">is the Largest"</text>
+
+            <!-- LEFT DECISION: No -> Display Number3 (left-no) -->
+            <line x1="140" y1="595" x2="140" y2="700" stroke="#333" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+            <text x="152" y="625" font-size="11" font-weight="600" fill="#c62828">No</text>
+
+            <!-- Display Number3 is Largest (from left branch) -->
+            <rect x="60" y="705" width="160" height="44" rx="4" fill="#f3e5f5" stroke="#6a1b9a" stroke-width="2"/>
+            <text x="140" y="725" text-anchor="middle" font-size="11" font-weight="500" fill="#4a148c">Display "Number3</text>
+            <text x="140" y="740" text-anchor="middle" font-size="11" font-weight="500" fill="#4a148c">is the Largest"</text>
+
+            <!-- RIGHT DECISION: Yes -> Display Number2 -->
+            <line x1="460" y1="545" x2="440" y2="545" stroke="#333" stroke-width="1.5"/>
+            <line x1="440" y1="545" x2="440" y2="640" stroke="#333" stroke-width="1.5"/>
+            <line x1="440" y1="640" x2="500" y2="640" stroke="#333" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+            <text x="450" y="575" font-size="11" font-weight="600" fill="#2e7d32">Yes</text>
+
+            <!-- Display Number2 is Largest -->
+            <rect x="500" y="618" width="160" height="44" rx="4" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+            <text x="580" y="638" text-anchor="middle" font-size="11" font-weight="500" fill="#0d47a1">Display "Number2</text>
+            <text x="580" y="653" text-anchor="middle" font-size="11" font-weight="500" fill="#0d47a1">is the Largest"</text>
+
+            <!-- RIGHT DECISION: No -> Display Number3 -->
+            <line x1="580" y1="595" x2="580" y2="700" stroke="#333" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+            <text x="592" y="625" font-size="11" font-weight="600" fill="#c62828">No</text>
+
+            <!-- Display Number3 is Largest (from right branch) -->
+            <rect x="500" y="705" width="160" height="44" rx="4" fill="#f3e5f5" stroke="#6a1b9a" stroke-width="2"/>
+            <text x="580" y="725" text-anchor="middle" font-size="11" font-weight="500" fill="#4a148c">Display "Number3</text>
+            <text x="580" y="740" text-anchor="middle" font-size="11" font-weight="500" fill="#4a148c">is the Largest"</text>
+
+            <!-- All 4 outputs connect to STOP -->
+            <!-- From Display Number1 -->
+            <line x1="140" y1="662" x2="140" y2="820" stroke="#333" stroke-width="1.5"/>
+            <line x1="140" y1="820" x2="360" y2="820" stroke="#333" stroke-width="1.5"/>
+
+            <!-- From Display Number3 (left) -->
+            <line x1="140" y1="749" x2="140" y2="850" stroke="#333" stroke-width="1.5"/>
+            <line x1="140" y1="850" x2="360" y2="850" stroke="#333" stroke-width="1.5"/>
+
+            <!-- From Display Number2 -->
+            <line x1="580" y1="662" x2="580" y2="820" stroke="#333" stroke-width="1.5"/>
+            <line x1="580" y1="820" x2="360" y2="820" stroke="#333" stroke-width="1.5"/>
+
+            <!-- From Display Number3 (right) -->
+            <line x1="580" y1="749" x2="580" y2="850" stroke="#333" stroke-width="1.5"/>
+            <line x1="580" y1="850" x2="360" y2="850" stroke="#333" stroke-width="1.5"/>
+
+            <!-- Merge point down to Stop -->
+            <line x1="360" y1="850" x2="360" y2="900" stroke="#333" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+            <!-- STOP -->
+            <ellipse cx="360" cy="930" rx="80" ry="28" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
+            <text x="360" y="935" text-anchor="middle" font-size="14" font-weight="600" fill="#b71c1c">Stop</text>
+
+        </svg>
+    </div>
+</body>
+</html>

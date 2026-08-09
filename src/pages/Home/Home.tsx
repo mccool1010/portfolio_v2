@@ -32,7 +32,7 @@ const SOCIAL_LINKS = [
   {
     icon: Github,
     label: 'GitHub',
-    href: 'https://github.com/harikrishna-git',
+    href: 'https://github.com/mccool1010',
     tooltip: 'GitHub',
   },
   {

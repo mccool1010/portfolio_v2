@@ -85,7 +85,7 @@ const PROFILE_CARDS = [
     icon: Github,
     label: 'GitHub',
     description: 'Explore my repositories',
-    href: 'https://github.com/harikrishna-git',
+    href: 'https://github.com/mccool1010',
   },
   {
     key: 'linkedin',
@@ -274,7 +274,7 @@ export default function Contact() {
           transition={{ delay: 0.6 }}
         >
           {[
-            { icon: Github, href: 'https://github.com/harikrishna-git', label: 'GitHub' },
+            { icon: Github, href: 'https://github.com/mccool1010', label: 'GitHub' },
             { icon: Linkedin, href: 'https://linkedin.com/in/hari-krishna-01378a248', label: 'LinkedIn' },
             { icon: Mail, href: 'mailto:harikrishnaarun5@gmail.com', label: 'Email' },
             { icon: Phone, href: 'tel:+919207499037', label: 'Phone' },

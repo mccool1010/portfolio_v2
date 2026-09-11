@@ -84,7 +84,7 @@ export const PROJECTS: Project[] = [
     ],
     links: [
       { label: 'GitHub', href: 'https://github.com/mccool1010/Slipsense', icon: 'github' },
-      { label: 'Live Demo', href: 'https://slipsense-sage.vercel.app', icon: 'external' },
+      { label: 'Live Demo', href: 'https://slipsense-ebon.vercel.app', icon: 'external' },
     ],
   },
   {

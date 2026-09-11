@@ -19,7 +19,7 @@ export default function Projects({ isActive }: ProjectsProps) {
   }, [isActive]);
 
   return (
-    <div className="section-padding pt-24">
+    <div className="section-padding pt-20 sm:pt-24">
       <div className="max-w-6xl mx-auto">
         {/* ─── Header ─── */}
         <div className="mb-4">
@@ -50,7 +50,7 @@ export default function Projects({ isActive }: ProjectsProps) {
         </div>
 
         {/* ─── Project Grid ─── */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mt-12">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mt-8 sm:mt-12">
           {PROJECTS.map((project, index) => (
             <ProjectTile
               key={project.id}

@@ -3,6 +3,10 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      screens: {
+        // Small phones (iPhone SE / Galaxy A-series) sit below Tailwind's `sm`
+        xs: '400px',
+      },
       colors: {
         // Core dark AI theme
         surface: {

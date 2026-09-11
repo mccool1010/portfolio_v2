@@ -15,7 +15,6 @@ import {
 } from 'lucide-react';
 import TextReveal from '../../components/animations/TextReveal';
 import GlassCard from '../../components/cards/GlassCard';
-import MagneticButton from '../../components/buttons/MagneticButton';
 
 // ─── Copy Hook ─────────────────────────────────
 function useCopyToClipboard() {
@@ -66,7 +65,7 @@ const CONTACT_METHODS = [
     key: 'location',
     icon: MapPin,
     label: 'Location',
-    value: 'Kerala, India',
+    value: 'Malappuram, Kerala, India',
     copyable: false,
   },
   {
@@ -92,7 +91,7 @@ const PROFILE_CARDS = [
     icon: Linkedin,
     label: 'LinkedIn',
     description: 'Professional updates',
-    href: 'https://linkedin.com/in/hari-krishna-01378a248',
+    href: 'https://www.linkedin.com/in/hk7373/',
   },
   {
     key: 'resume',
@@ -109,7 +108,7 @@ export default function Contact() {
   const { copiedKey, copy } = useCopyToClipboard();
 
   return (
-    <div className="section-padding pt-24 min-h-screen flex flex-col">
+    <div className="section-padding pt-20 sm:pt-24 min-h-dvh flex flex-col">
       <div className="max-w-5xl mx-auto w-full flex-1 flex flex-col">
         {/* ─── Header ─── */}
         <div className="mb-12 text-center">
@@ -160,7 +159,8 @@ export default function Contact() {
                   return (
                     <div
                       key={method.key}
-                      className="flex items-center justify-between gap-4 py-3 border-b border-white/5 last:border-0"
+                      // Stacks on narrow phones so the email address is never truncated
+                      className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 py-3 border-b border-white/5 last:border-0"
                     >
                       <div className="flex items-center gap-3 min-w-0">
                         <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center">
@@ -170,7 +170,7 @@ export default function Contact() {
                           <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">
                             {method.label}
                           </p>
-                          <p className={`text-sm truncate ${
+                          <p className={`text-sm break-all sm:truncate ${
                             (method as { isStatus?: boolean }).isStatus
                               ? 'text-green-400 font-medium'
                               : 'text-gray-200'
@@ -181,11 +181,11 @@ export default function Contact() {
                       </div>
 
                       {/* Action buttons */}
-                      <div className="flex items-center gap-2 flex-shrink-0">
+                      <div className="flex items-center gap-2 flex-shrink-0 pl-12 sm:pl-0">
                         {method.copyable && (
                           <button
                             onClick={() => copy(method.value, method.key)}
-                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all"
+                            className="flex items-center gap-1.5 px-3 min-h-[36px] rounded-md text-xs font-medium bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all"
                             aria-label={`Copy ${method.label}`}
                           >
                             {isCopied ? (
@@ -204,7 +204,7 @@ export default function Contact() {
                         {method.href && (
                           <a
                             href={method.href}
-                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium bg-accent-cyan/10 hover:bg-accent-cyan/20 text-accent-cyan transition-all"
+                            className="flex items-center gap-1.5 px-3 min-h-[36px] rounded-md text-xs font-medium bg-accent-cyan/10 hover:bg-accent-cyan/20 text-accent-cyan transition-all"
                             aria-label={`${method.actionLabel} via ${method.label}`}
                           >
                             <ExternalLink size={12} />
@@ -231,34 +231,30 @@ export default function Contact() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
                 >
-                  <GlassCard
-                    className="p-5 flex items-center gap-4"
-                    onClick={() => {
-                      if (card.isDownload) {
-                        // Trigger download
-                        const a = document.createElement('a');
-                        a.href = card.href;
-                        a.download = '';
-                        a.click();
-                      } else {
-                        window.open(card.href, '_blank', 'noopener,noreferrer');
-                      }
-                    }}
-                    spotlight
+                  {/* A real anchor, not a synthetic click: iOS Safari blocks
+                      programmatic downloads from a detached <a> element */}
+                  <a
+                    href={card.href}
+                    target={card.isDownload ? undefined : '_blank'}
+                    rel={card.isDownload ? undefined : 'noopener noreferrer'}
+                    download={card.isDownload || undefined}
+                    className="block rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/50"
                   >
-                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-accent-cyan/10 border border-accent-cyan/20 flex items-center justify-center">
-                      <Icon size={22} className="text-accent-cyan" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h4 className="text-base font-heading font-semibold text-white">
-                        {card.label}
-                      </h4>
-                      <p className="text-sm text-gray-400">{card.description}</p>
-                    </div>
-                    <div className="flex-shrink-0 text-gray-500">
-                      {card.isDownload ? <Download size={18} /> : <ExternalLink size={18} />}
-                    </div>
-                  </GlassCard>
+                    <GlassCard className="p-5 flex items-center gap-4" spotlight>
+                      <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-accent-cyan/10 border border-accent-cyan/20 flex items-center justify-center">
+                        <Icon size={22} className="text-accent-cyan" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-base font-heading font-semibold text-white">
+                          {card.label}
+                        </h4>
+                        <p className="text-sm text-gray-400">{card.description}</p>
+                      </div>
+                      <div className="flex-shrink-0 text-gray-500">
+                        {card.isDownload ? <Download size={18} /> : <ExternalLink size={18} />}
+                      </div>
+                    </GlassCard>
+                  </a>
                 </motion.div>
               );
             })}
@@ -275,7 +271,7 @@ export default function Contact() {
         >
           {[
             { icon: Github, href: 'https://github.com/mccool1010', label: 'GitHub' },
-            { icon: Linkedin, href: 'https://linkedin.com/in/hari-krishna-01378a248', label: 'LinkedIn' },
+            { icon: Linkedin, href: 'https://www.linkedin.com/in/hk7373/', label: 'LinkedIn' },
             { icon: Mail, href: 'mailto:harikrishnaarun5@gmail.com', label: 'Email' },
             { icon: Phone, href: 'tel:+919207499037', label: 'Phone' },
           ].map((social) => {

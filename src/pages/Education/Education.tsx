@@ -4,7 +4,6 @@ import {
   MapPin,
   Calendar,
   BookOpen,
-  GraduationCap,
   ExternalLink,
   Download,
   Award,
@@ -32,88 +31,100 @@ interface Certification {
 
 const CERTIFICATIONS: Certification[] = [
   {
-    id: 'hexinox-mern',
-    title: 'Full Stack Development (MERN) with AI — Internship',
-    issuer: 'Hexinox Innovations Pvt. Ltd.',
-    date: 'June 2025',
+    id: 'coursera-tensorflow',
+    title: 'DeepLearning.AI TensorFlow Developer',
+    issuer: 'DeepLearning.AI (Coursera)',
+    date: '1 June 2026',
     description:
-      'Completed a 7-day offline internship program at Hexinox Innovations, Kochi, covering Full Stack Development (MERN) with AI. Certificate ID: HX25IN0716.',
-    skills: ['MongoDB', 'Express.js', 'React', 'Node.js', 'AI Integration', 'Full Stack'],
-    certificateImage: '/assets/achievements/DOC-20260713-WA0046._page-0001.jpg',
+      'Professional Certificate spanning 4 courses: Introduction to TensorFlow for Artificial Intelligence, Machine Learning and Deep Learning; Convolutional Neural Networks in TensorFlow; Natural Language Processing in TensorFlow; and Sequences, Time Series and Prediction. Instructor: Laurence Moroney.',
+    skills: ['TensorFlow', 'CNNs', 'NLP', 'Time Series', 'Deep Learning', 'Computer Vision'],
+    verifyUrl: 'https://coursera.org/verify/professional-cert/N2SJE9DKVWR6',
+    certificateImage: '/assets/achievements/tensorflow_developer.jpg',
   },
   {
     id: 'stanford-ml',
     title: 'Machine Learning Specialization',
-    issuer: 'Stanford & DeepLearning.AI (Coursera)',
-    date: '2024',
+    issuer: 'Stanford Online & DeepLearning.AI (Coursera)',
+    date: '11 September 2025',
     description:
-      'Comprehensive specialization covering supervised learning, unsupervised learning, recommender systems, and reinforcement learning. Built practical machine learning models using Python and TensorFlow.',
-    skills: ['Python', 'TensorFlow', 'Regression', 'Classification', 'Neural Networks', 'Model Evaluation'],
-    verifyUrl: '#',
-    certificateImage: '/assets/achievements/machine_page-0001.jpg',
-  },
-  {
-    id: 'coursera-tensorflow',
-    title: 'DeepLearning.AI TensorFlow Developer',
-    issuer: 'Coursera / DeepLearning.AI',
-    date: 'June 2026',
-    description:
-      'Professional Certificate covering 4 courses: Introduction to TensorFlow for AI, Machine Learning and Deep Learning; Convolutional Neural Networks in TensorFlow; Natural Language Processing in TensorFlow; and Sequences, Time Series and Prediction. Instructor: Laurence Moroney.',
-    skills: ['TensorFlow', 'CNNs', 'NLP', 'Time Series', 'Deep Learning', 'Computer Vision'],
-    verifyUrl: 'https://coursera.org/verify/professional-cert/N2SJE9DKVWR6',
-    certificateImage: '/assets/achievements/tensorflow_page-0001.jpg',
+      'Three-course specialization taught by Andrew Ng, covering supervised learning (linear regression, logistic regression, neural networks, decision trees), unsupervised learning (clustering, anomaly detection), recommender systems, and reinforcement learning, alongside best practices for building machine learning models.',
+    skills: ['Python', 'TensorFlow', 'Regression', 'Classification', 'Neural Networks', 'Recommender Systems', 'Reinforcement Learning'],
+    verifyUrl: 'https://coursera.org/verify/specialization/0Q7MA38CY03N',
+    certificateImage: '/assets/achievements/ml_specialization.jpg',
   },
   {
     id: 'nptel-ml',
-    title: 'Introduction to Machine Learning',
+    title: 'Introduction to Machine Learning — Elite',
     issuer: 'NPTEL / IIT Kharagpur',
     date: 'Jul–Sep 2024',
+    credentialId: 'NPTEL24CS81S440800077',
     description:
-      'Elite certification in Introduction to Machine Learning from NPTEL, IIT Kharagpur. 8-week course with a consolidated score of 67% (Online Assignments: 22.38/25, Proctored Exam: 44.9/75). Roll No: NPTEL24CS81S440800077.',
+      'Elite grade in the 8-week NPTEL Introduction to Machine Learning course from IIT Kharagpur, with a consolidated score of 67% (Online Assignments 22.38/25, Proctored Exam 44.9/75). 6,812 candidates were certified in this run.',
     skills: ['Machine Learning', 'Statistics', 'Probability', 'Optimization', 'ML Algorithms', 'Python'],
     certificateImage: '/assets/achievements/nptel_intro_ml.jpg',
   },
   {
+    id: 'hexinox-mern',
+    title: 'Full Stack Development (MERN) with AI — Internship',
+    issuer: 'Hexinox Innovations Pvt. Ltd., Kochi',
+    date: 'June 2025',
+    credentialId: 'HX25IN0716',
+    description:
+      'Seven-day offline internship program at Hexinox Innovations, Kochi, starting 19 June 2025, with area of exposure in Full Stack Development (MERN) with AI. Completed successfully; certificate issued 26 July 2025.',
+    skills: ['MongoDB', 'Express.js', 'React', 'Node.js', 'Supabase', 'AI Integration'],
+    certificateImage: '/assets/achievements/hexinox_mern_internship.jpg',
+  },
+  {
     id: 'cdac-ethical-hacking',
     title: 'Ethical Hacking & Penetration Testing',
-    issuer: 'C-DAC (MeitY, Govt. of India)',
-    date: '2024',
+    issuer: 'C-DAC Noida (MeitY, Govt. of India)',
+    date: '19 Aug – 3 Oct 2024',
     credentialId: '1561/329632/CG/(19)/2024',
     description:
-      'Completed the online training program on Ethical Hacking and Penetration Testing conducted by C-DAC, NOIDA under the Cyber Gyan Project, supported by Ministry of Electronics and Information Technology, Government of India. Course duration: 25 hours (Aug–Oct 2024).',
+      'Completed the 25-hour online training program on Ethical Hacking and Penetration Testing conducted by C-DAC, NOIDA under the Cyber Gyan Project, supported by the Ministry of Electronics and Information Technology, Government of India.',
     skills: ['Ethical Hacking', 'Penetration Testing', 'Cybersecurity', 'Network Security', 'Vulnerability Assessment'],
-    certificateImage: '/assets/achievements/DOC-20260713-WA0050._page-0001.jpg',
+    certificateImage: '/assets/achievements/cdac_ethical_hacking.jpg',
   },
   {
     id: 'cisco-network',
-    title: 'Network Basics Badge',
+    title: 'Networking Basics',
     issuer: 'Cisco Networking Academy',
-    date: '2023',
+    date: '29 January 2025',
     description:
-      'Foundational networking certification covering network fundamentals, protocols, and basic security concepts.',
-    skills: ['Network Fundamentals', 'Protocols', 'Security Basics', 'OSI Model'],
-    verifyUrl: '#',
+      'Foundational networking course from the Cisco Networking Academy program, covering network fundamentals, protocols, addressing, and basic security concepts.',
+    skills: ['Network Fundamentals', 'Protocols', 'OSI Model', 'IP Addressing', 'Security Basics'],
     certificateImage: '/assets/achievements/cisco_networkbasics.jpg',
   },
   {
-    id: 'microsoft-ai',
-    title: 'Microsoft AI Skills Fest',
+    id: 'microsoft-ai-fest',
+    title: 'Microsoft AI Skills Fest — Festival Participation',
     issuer: 'Microsoft',
-    date: '2026',
+    date: '1 June 2025',
     description:
-      'Participated in the Microsoft AI Skills Fest, gaining hands-on experience with Microsoft AI tools, Azure AI services, and applied AI problem-solving.',
+      'Completed the Microsoft AI Skills Fest festival participation track, working hands-on with Microsoft AI tooling and Azure AI services.',
     skills: ['Azure AI', 'Microsoft AI', 'Cloud Computing', 'AI Tools'],
-    certificateImage: '/assets/achievements/microsoft_ai_skills_fest/Screenshot_2026-07-22-15-57-15-29_254de13a4bc8758c9908fff1f73e3725.jpg',
+    certificateImage: '/assets/achievements/microsoft_ai_skills_fest.jpg',
   },
   {
-    id: 'crypto-webinar',
-    title: 'Cryptography & Secure Communication Webinar',
-    issuer: 'Conducted by Hari Krishna',
-    date: '2025',
+    id: 'microsoft-purview',
+    title: 'AI Skills Fest Challenge: Manage AI Data Security with Microsoft Purview',
+    issuer: 'Microsoft',
+    date: '24 May 2025',
     description:
-      'Organized and conducted a webinar on Cryptography and Secure Communication, covering encryption algorithms, secure protocols, and practical implementations.',
-    skills: ['Cryptography', 'Network Security', 'Encryption', 'Public Speaking'],
-    certificateImage: '/assets/achievements/cryptographyandsecurecounication_webinar_conducted_by_me.jpg',
+      'Completed the Microsoft AI Skills Fest challenge on managing AI data security with Microsoft Purview — data governance, classification, and protection controls for AI workloads.',
+    skills: ['Microsoft Purview', 'AI Data Security', 'Data Governance', 'Azure', 'Compliance'],
+    certificateImage: '/assets/achievements/microsoft_purview_challenge.jpg',
+  },
+  {
+    id: 'ibm-skillsbuild-bob',
+    title: 'Lab: Troubleshoot Your Code Using IBM Bob',
+    issuer: 'IBM SkillsBuild',
+    date: '18 August 2026',
+    credentialId: 'ALM-COURSE_4071307',
+    description:
+      'Hands-on IBM SkillsBuild lab on debugging and troubleshooting code with IBM Bob, the AI coding assistant. Completion recorded 18 Aug 2026 (30 minutes of learning).',
+    skills: ['Debugging', 'AI Coding Assistants', 'IBM Bob', 'Code Troubleshooting'],
+    certificateImage: '/assets/achievements/ibm_skillsbuild_bob_lab.pdf',
   },
 ];
 
@@ -131,17 +142,17 @@ export default function Education({ isActive }: EducationProps) {
   }, [isActive]);
 
   return (
-    <div className="section-padding pt-24">
+    <div className="section-padding pt-20 sm:pt-24">
       <div className="max-w-6xl mx-auto">
         {/* ─── Header ─── */}
-        <div className="mb-16">
+        <div className="mb-10 sm:mb-16">
           <TextReveal
             text="Education"
             as="h2"
             className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-white"
           />
           <motion.p
-            className="mt-4 text-lg text-gray-400"
+            className="mt-3 sm:mt-4 text-base sm:text-lg text-gray-400"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -153,7 +164,7 @@ export default function Education({ isActive }: EducationProps) {
 
         {/* ─── College Section ─── */}
         <motion.div
-          className="mb-20"
+          className="mb-14 sm:mb-20"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -181,32 +192,56 @@ export default function Education({ isActive }: EducationProps) {
                 </p>
 
                 <div className="space-y-2.5 mb-6">
-                  <div className="flex items-center gap-2 text-gray-300">
-                    <BookOpen size={16} className="text-gray-500 flex-shrink-0" />
-                    <span>Bachelor of Technology — Computer Science & Engineering</span>
+                  <div className="flex items-start gap-2 text-gray-300">
+                    <BookOpen size={16} className="text-gray-500 flex-shrink-0 mt-1" />
+                    <span>Bachelor of Technology — Computer Science &amp; Engineering</span>
                   </div>
-                  <div className="flex items-center gap-2 text-gray-300">
-                    <Calendar size={16} className="text-gray-500 flex-shrink-0" />
-                    <span>October 2022 – April 2026</span>
+                  <div className="flex items-start gap-2 text-gray-300">
+                    <Calendar size={16} className="text-gray-500 flex-shrink-0 mt-1" />
+                    <span>2022 – April 2026 · 8 semesters, 162 credits</span>
                   </div>
-                  <div className="flex items-center gap-2 text-gray-300">
-                    <MapPin size={16} className="text-gray-500 flex-shrink-0" />
+                  <div className="flex items-start gap-2 text-gray-300">
+                    <MapPin size={16} className="text-gray-500 flex-shrink-0 mt-1" />
                     <span>Kasaragod, Kerala</span>
                   </div>
                 </div>
 
                 <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                  Focused on Machine Learning, Artificial Intelligence, Computer Vision,
-                  and Software Engineering. Actively involved in research, hackathons,
-                  and building real-world AI applications.
+                  Graduated April 2026 with a CGPA of 7.42 (First Class). Coursework
+                  centred on Data Structures & Algorithms, DBMS, Operating Systems,
+                  Computer Networks, and OOP, extended into Machine Learning, Computer
+                  Vision, and full-stack engineering through research, internships,
+                  and hackathons.
                 </p>
 
                 {/* Academic detail mini-cards */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  <StatCard value="7.42" label="CGPA" delay={0} />
+                  <StatCard value="7.42" label="CGPA · First Class" delay={0} />
                   <StatCard value="B.Tech" label="Degree" delay={0.1} />
                   <StatCard value="KTU" label="University" delay={0.2} />
                   <StatCard value="2026" label="Graduation" delay={0.3} />
+                </div>
+
+                {/* Official records */}
+                <div className="flex flex-wrap gap-3 mt-6">
+                  <MagneticButton
+                    variant="secondary"
+                    size="sm"
+                    href="/assets/education/provisional_cert.pdf"
+                    target="_blank"
+                  >
+                    <ExternalLink size={14} />
+                    Provisional Certificate
+                  </MagneticButton>
+                  <MagneticButton
+                    variant="ghost"
+                    size="sm"
+                    href="/assets/education/grade_card.pdf"
+                    target="_blank"
+                  >
+                    <ExternalLink size={14} />
+                    Consolidated Grade Card
+                  </MagneticButton>
                 </div>
               </div>
             </div>
@@ -244,7 +279,7 @@ export default function Education({ isActive }: EducationProps) {
           onClose={() => setSelectedCert(null)}
         >
           {selectedCert && (
-            <div className="grid md:grid-cols-[45%_55%] gap-8">
+            <div className="grid md:grid-cols-[45%_55%] gap-6 md:gap-8">
               {/* Left — Certificate Image */}
               <div className="relative aspect-[4/3] bg-gradient-to-br from-surface-200 to-surface-300 rounded-xl flex items-center justify-center overflow-hidden">
                 {selectedCert.certificateImage ? (
@@ -327,10 +362,17 @@ export default function Education({ isActive }: EducationProps) {
                       View Credential
                     </MagneticButton>
                   )}
-                  <MagneticButton variant="ghost" size="sm">
-                    <Download size={14} />
-                    Download
-                  </MagneticButton>
+                  {selectedCert.certificateImage && (
+                    <MagneticButton
+                      variant="ghost"
+                      size="sm"
+                      href={selectedCert.certificateImage}
+                      target="_blank"
+                    >
+                      <Download size={14} />
+                      Certificate
+                    </MagneticButton>
+                  )}
                 </div>
               </div>
             </div>

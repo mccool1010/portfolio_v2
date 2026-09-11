@@ -5,7 +5,7 @@ import {
   Mail,
   FileText,
   FolderOpen,
-  BrainCircuit,
+  Briefcase,
   FlaskConical,
   Award,
 } from 'lucide-react';
@@ -19,13 +19,15 @@ interface HomeProps {
   onNavigate: (panel: number) => void;
 }
 
+// Positions are the badge's *centre* (the wrapper is translated -50%), so they
+// stay inside the column instead of spilling past the right edge of the page.
 const FLOATING_TECHS = [
-  { label: 'Python', x: '5%', y: '15%', delay: 0 },
-  { label: 'TensorFlow', x: '75%', y: '8%', delay: 0.5 },
-  { label: 'OpenCV', x: '85%', y: '55%', delay: 1.0 },
-  { label: 'React', x: '10%', y: '70%', delay: 1.5 },
-  { label: 'Docker', x: '70%', y: '80%', delay: 2.0 },
-  { label: 'Machine Learning', x: '60%', y: '25%', delay: 2.5 },
+  { label: 'Python', x: '8%', y: '15%', delay: 0 },
+  { label: 'PyTorch', x: '78%', y: '8%', delay: 0.5 },
+  { label: 'TensorFlow', x: '82%', y: '55%', delay: 1.0 },
+  { label: 'React', x: '12%', y: '70%', delay: 1.5 },
+  { label: 'FastAPI', x: '74%', y: '80%', delay: 2.0 },
+  { label: 'Computer Vision', x: '20%', y: '38%', delay: 2.5 },
 ];
 
 const SOCIAL_LINKS = [
@@ -38,7 +40,7 @@ const SOCIAL_LINKS = [
   {
     icon: Linkedin,
     label: 'LinkedIn',
-    href: 'https://linkedin.com/in/hari-krishna-01378a248',
+    href: 'https://www.linkedin.com/in/hk7373/',
     tooltip: 'LinkedIn',
   },
   {
@@ -57,17 +59,17 @@ const SOCIAL_LINKS = [
 
 export default function Home({ onNavigate }: HomeProps) {
   return (
-    <div className="section-padding min-h-screen flex flex-col justify-center relative">
+    <div className="section-padding min-h-dvh flex flex-col justify-center relative">
       <div className="max-w-7xl mx-auto w-full">
         {/* Main two-column layout */}
-        <div className="grid lg:grid-cols-[55%_45%] gap-12 lg:gap-16 items-center min-h-[70vh]">
+        <div className="grid lg:grid-cols-[55%_45%] gap-8 sm:gap-12 lg:gap-16 items-center lg:min-h-[70vh]">
           {/* ─── Left Side: Hero ─── */}
-          <div className="flex flex-col gap-6 lg:gap-8 pt-16 lg:pt-0">
+          <div className="flex flex-col gap-5 sm:gap-6 lg:gap-8">
             {/* Name */}
             <TextReveal
               text="Hari Krishna"
               as="h1"
-              className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-heading font-bold tracking-tight text-white leading-[1.1]"
+              className="text-[2.5rem] xs:text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-heading font-bold tracking-tight text-white leading-[1.1]"
               delay={200}
               stagger={0.04}
             />
@@ -79,7 +81,7 @@ export default function Home({ onNavigate }: HomeProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
             >
-              Applied AI Engineer
+              Software Engineer · AI/ML
             </motion.p>
 
             {/* Description */}
@@ -89,9 +91,11 @@ export default function Home({ onNavigate }: HomeProps) {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 1.0 }}
             >
-              Building intelligent systems that solve real-world problems.
-              Specializing in Machine Learning, Computer Vision, and
-              full-stack AI applications.
+              AI/ML and full-stack engineer building production-oriented systems —
+              from computer vision and deep learning pipelines to LLM integration
+              and real-time web applications. Comfortable owning a project end to
+              end: model training, REST/WebSocket API design, and deployed,
+              user-facing interfaces.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -135,7 +139,7 @@ export default function Home({ onNavigate }: HomeProps) {
                     href={link.href}
                     target={link.href.startsWith('http') ? '_blank' : undefined}
                     rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="group relative flex items-center justify-center w-10 h-10 rounded-lg glass-card !bg-white/[0.03] hover:!bg-accent-cyan/10 hover:!border-accent-cyan/30 transition-all duration-300"
+                    className="group relative flex items-center justify-center w-11 h-11 sm:w-10 sm:h-10 rounded-lg glass-card !bg-white/[0.03] hover:!bg-accent-cyan/10 hover:!border-accent-cyan/30 transition-all duration-300"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                     aria-label={link.tooltip}
@@ -166,14 +170,19 @@ export default function Home({ onNavigate }: HomeProps) {
 
             {/* Profile Image Card */}
             <GlassCard
-              className="relative w-64 h-80 sm:w-80 sm:h-96 lg:w-[340px] lg:h-[420px] !rounded-2xl overflow-hidden"
+              className="relative w-48 h-60 xs:w-56 xs:h-72 sm:w-80 sm:h-96 lg:w-[340px] lg:h-[420px] !rounded-2xl overflow-hidden"
               spotlight
             >
               <img
                 src="/assets/profile/profile.jpg"
-                alt="Hari Krishna — Applied AI Engineer"
+                alt="Hari Krishna — Software Engineer, AI/ML"
                 className="w-full h-full object-cover"
-                loading="lazy"
+                // Above the fold (and first in source order on mobile) — lazy
+                // loading it just delayed the largest contentful paint
+                loading="eager"
+                fetchPriority="high"
+                width={340}
+                height={420}
               />
             </GlassCard>
 
@@ -181,7 +190,7 @@ export default function Home({ onNavigate }: HomeProps) {
             {FLOATING_TECHS.map((tech) => (
               <div
                 key={tech.label}
-                className="absolute hidden lg:block"
+                className="absolute hidden lg:block -translate-x-1/2"
                 style={{ left: tech.x, top: tech.y }}
               >
                 <FloatingBadge label={tech.label} delay={tech.delay} />
@@ -192,15 +201,15 @@ export default function Home({ onNavigate }: HomeProps) {
 
         {/* ─── Quick Stats ─── */}
         <motion.div
-          className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mt-16 lg:mt-20 max-w-3xl"
+          className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mt-12 sm:mt-16 lg:mt-20 max-w-3xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 1.6 }}
         >
-          <StatCard value="11+" label="Projects" icon={FolderOpen} delay={0} />
-          <StatCard value="5+" label="AI Models" icon={BrainCircuit} delay={0.1} />
-          <StatCard value="1" label="Research" icon={FlaskConical} delay={0.2} />
-          <StatCard value="8+" label="Certifications" icon={Award} delay={0.3} />
+          <StatCard value="10" label="Projects" icon={FolderOpen} delay={0} />
+          <StatCard value="3" label="Internships & Roles" icon={Briefcase} delay={0.1} />
+          <StatCard value="Top 8%" label="ICPC 2026 Challenge" icon={FlaskConical} delay={0.2} />
+          <StatCard value="9" label="Certifications" icon={Award} delay={0.3} />
         </motion.div>
       </div>
     </div>

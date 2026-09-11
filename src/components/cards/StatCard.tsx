@@ -39,7 +39,7 @@ export default function StatCard({
   return (
     <motion.div
       ref={ref}
-      className="glass-card px-5 py-4 text-center hover-glow"
+      className="glass-card px-3 sm:px-5 py-4 text-center hover-glow min-w-0"
       initial={{ opacity: 0, y: 16 }}
       animate={isVisible ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: delay, ease: 'easeOut' }}
@@ -51,10 +51,10 @@ export default function StatCard({
           className="mx-auto mb-2 text-accent-cyan/70"
         />
       )}
-      <div className="text-2xl font-bold font-heading gradient-text-cyan">
+      <div className="text-xl sm:text-2xl font-bold font-heading gradient-text-cyan leading-tight">
         {value}
       </div>
-      <div className="text-xs text-gray-400 mt-1 font-medium uppercase tracking-wider">
+      <div className="text-[0.65rem] sm:text-xs text-gray-400 mt-1 font-medium uppercase tracking-wide sm:tracking-wider leading-snug hyphens-auto">
         {label}
       </div>
     </motion.div>

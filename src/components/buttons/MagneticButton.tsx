@@ -33,6 +33,9 @@ export default function MagneticButton({
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!ref.current) return;
+    // Touch browsers synthesise a mousemove on tap; without this the button
+    // jumps sideways under the finger.
+    if (window.matchMedia('(hover: none)').matches) return;
     const rect = ref.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
@@ -45,10 +48,11 @@ export default function MagneticButton({
     setPosition({ x: 0, y: 0 });
   };
 
+  // min-h keeps every button a comfortable thumb target on touch screens
   const sizeClasses = {
-    sm: 'px-4 py-2 text-sm',
-    md: 'px-6 py-2.5 text-sm',
-    lg: 'px-8 py-3 text-base',
+    sm: 'px-4 py-2 text-sm min-h-[40px]',
+    md: 'px-5 sm:px-6 py-2.5 text-sm min-h-[44px]',
+    lg: 'px-6 sm:px-8 py-3 text-base min-h-[48px]',
   };
 
   const variantClasses = {
@@ -69,7 +73,7 @@ export default function MagneticButton({
   const motionProps = {
     ref: ref as React.Ref<HTMLButtonElement>,
     animate: { x: position.x, y: position.y },
-    transition: { type: 'spring', stiffness: 350, damping: 15, mass: 0.5 },
+    transition: { type: 'spring' as const, stiffness: 350, damping: 15, mass: 0.5 },
     onMouseMove: handleMouseMove,
     onMouseLeave: handleMouseLeave,
     whileTap: { scale: 0.97 },

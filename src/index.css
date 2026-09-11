@@ -18,13 +18,37 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Stop iOS Safari inflating text in landscape */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
+  html,
   body {
     background-color: #0a0e1a;
     color: #f1f5f9;
     font-family: 'Inter', system-ui, sans-serif;
+    /* The panel system is the only horizontal axis; never let the page scroll sideways */
+    max-width: 100%;
     overflow-x: hidden;
+  }
+
+  /* Media never breaks out of its container on narrow screens */
+  img,
+  video,
+  canvas,
+  svg {
+    max-width: 100%;
+  }
+
+  img,
+  video {
+    height: auto;
+  }
+
+  /* Long unbroken strings (URLs, credential IDs) must not force a sideways scroll */
+  h1, h2, h3, h4, h5, h6, p, li, span, a {
+    overflow-wrap: break-word;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -144,24 +168,77 @@
     opacity: 1;
   }
 
-  /* Panel container - horizontal scroll system */
+  /* Panel container - horizontal panel system.
+     Sized in % of the viewport-width container rather than vw units: vw includes
+     the classic desktop scrollbar, which made each panel drift a few px further
+     out of alignment than the last. */
   .panel-container {
     display: flex;
-    height: 100vh;
+    width: 100%;
+    height: 100vh; /* fallback for browsers without dvh */
+    height: 100dvh;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: transform;
   }
 
   .panel {
-    min-width: 100vw;
-    width: 100vw;
-    height: 100vh;
+    flex: 0 0 100%;
+    min-width: 100%;
+    width: 100%;
+    height: 100vh; /* fallback for browsers without dvh */
+    height: 100dvh;
     overflow-y: auto;
     overflow-x: hidden;
     position: relative;
+    /* Keep momentum scrolling inside the panel instead of bouncing the page */
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
     /* Custom scrollbar for panels */
     scrollbar-width: thin;
     scrollbar-color: rgba(34, 211, 238, 0.3) transparent;
+  }
+
+  /* Carousel arrows: always visible by default so touch users can reach them.
+     Only devices with a real hovering pointer get the fade-in-on-hover
+     treatment — a width breakpoint got this wrong on touch tablets. */
+  .carousel-arrow {
+    opacity: 1;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .carousel-arrow {
+      opacity: 0;
+    }
+
+    .group:hover .carousel-arrow,
+    .carousel-arrow:focus-visible {
+      opacity: 1;
+    }
+  }
+
+  /* Modal height cap — dvh keeps it clear of the mobile browser chrome */
+  .modal-max-h {
+    max-height: 90vh; /* fallback */
+    max-height: 90dvh;
+  }
+
+  /* Thin scrollbar for nested scroll areas (project viewer detail column) */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(34, 211, 238, 0.3) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgba(34, 211, 238, 0.3);
+    border-radius: 2px;
   }
 
   .panel::-webkit-scrollbar {
@@ -196,20 +273,29 @@
     border-color: rgba(34, 211, 238, 0.4);
   }
 
-  /* Section spacing */
+  /* Section spacing — side gutter never drops below 16px */
   .section-padding {
-    padding: 5rem 1.5rem;
+    padding-block: 4.5rem;
+    padding-inline: 1rem;
+  }
+
+  @media (min-width: 480px) {
+    .section-padding {
+      padding-inline: 1.5rem;
+    }
   }
 
   @media (min-width: 768px) {
     .section-padding {
-      padding: 6rem 2rem;
+      padding-block: 6rem;
+      padding-inline: 2rem;
     }
   }
 
   @media (min-width: 1024px) {
     .section-padding {
-      padding: 6rem 3rem;
+      padding-block: 6rem;
+      padding-inline: 3rem;
     }
   }
 }
@@ -228,12 +314,30 @@
   .delay-1000 { animation-delay: 1000ms; }
 }
 
+/* ── Touch devices ── */
+@media (hover: none) {
+  /* Hover-only affordances never resolve on touch, so pin them on */
+  .glass-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.06);
+    box-shadow: none;
+  }
+
+  /* Comfortable tap targets — WCAG 2.5.8 asks for 24px, Apple/Google for ~44px */
+  button,
+  a[role='button'],
+  [role='button'] {
+    touch-action: manipulation;
+  }
+}
+
 /* ── Reduced Motion ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 
   .panel-container {

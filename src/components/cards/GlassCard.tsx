@@ -9,7 +9,6 @@ interface GlassCardProps {
   /** Enable hover lift */
   hoverLift?: boolean;
   onClick?: () => void;
-  as?: 'div' | 'button' | 'article';
 }
 
 /**
@@ -22,7 +21,6 @@ export default function GlassCard({
   spotlight = true,
   hoverLift = true,
   onClick,
-  as: Tag = 'div',
 }: GlassCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [spotlightPos, setSpotlightPos] = useState({ x: 50, y: 50 });

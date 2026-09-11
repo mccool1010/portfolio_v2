@@ -22,22 +22,26 @@ const LINK_ICONS = {
  */
 export default function ProjectViewer({ project }: ProjectViewerProps) {
   return (
-    <div className="grid md:grid-cols-2 gap-8">
+    <div className="grid md:grid-cols-2 gap-6 md:gap-8">
       {/* ─── Left Side: Media ─── */}
       <div className="space-y-4">
         <ImageCarousel media={project.media} projectName={project.id} />
       </div>
 
-      {/* ─── Right Side: Information ─── */}
-      <div className="flex flex-col overflow-y-auto max-h-[65vh] pr-2 scrollbar-thin">
+      {/* ─── Right Side: Information ───
+          Only scrolls independently on desktop, where it sits beside the media.
+          On mobile it stacks and the modal itself scrolls — a nested scroller
+          there is nearly impossible to drive with a thumb. */}
+      <div className="flex flex-col min-w-0 md:overflow-y-auto md:max-h-[65vh] md:pr-2 md:scrollbar-thin">
         {/* Header */}
         <div className="mb-4">
           <h3 className="text-xl sm:text-2xl font-heading font-bold text-white mb-1">
             {project.name}
           </h3>
-          <div className="flex flex-wrap items-center gap-3 text-sm">
+          {/* Gap-separated rather than bullet-separated: dangling separators
+              looked broken once the row wrapped on a narrow screen */}
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
             <span className="text-accent-cyan font-medium">{project.category}</span>
-            <span className="text-gray-600">•</span>
             <span className={`px-2 py-0.5 rounded text-xs font-medium ${
               project.status === 'Completed'
                 ? 'bg-green-500/10 text-green-400 border border-green-500/20'
@@ -48,10 +52,7 @@ export default function ProjectViewer({ project }: ProjectViewerProps) {
               {project.status}
             </span>
             {project.duration && (
-              <>
-                <span className="text-gray-600">•</span>
-                <span className="text-gray-500">{project.duration}</span>
-              </>
+              <span className="text-gray-500">{project.duration}</span>
             )}
           </div>
         </div>
@@ -97,7 +98,7 @@ export default function ProjectViewer({ project }: ProjectViewerProps) {
         {/* Architecture */}
         {project.architecture && (
           <Section title="Architecture">
-            <div className="glass-card p-3 !rounded-lg text-xs font-mono text-gray-400 leading-relaxed">
+            <div className="glass-card p-3 !rounded-lg text-xs font-mono text-gray-400 leading-relaxed break-words">
               {project.architecture}
             </div>
           </Section>

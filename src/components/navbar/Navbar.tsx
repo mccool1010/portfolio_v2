@@ -29,20 +29,38 @@ export default function Navbar({ activePanel, onNavigate }: NavbarProps) {
 
   // Listen to scroll on the active panel to toggle navbar backdrop
   useEffect(() => {
-    const handleScroll = () => {
-      const panel = document.querySelector(`[data-panel="${activePanel}"]`);
-      if (panel) {
-        setScrolled(panel.scrollTop > 40);
-      }
-    };
+    const panel = document.querySelector(`[data-panel="${activePanel}"]`);
+    if (!panel) return;
 
-    const panels = document.querySelectorAll('.panel');
-    panels.forEach((p) => p.addEventListener('scroll', handleScroll));
+    const handleScroll = () => setScrolled(panel.scrollTop > 40);
 
-    return () => {
-      panels.forEach((p) => p.removeEventListener('scroll', handleScroll));
-    };
+    // Re-sync immediately: switching panels used to leave the backdrop showing
+    // the previous panel's scroll state until the next scroll event.
+    handleScroll();
+
+    panel.addEventListener('scroll', handleScroll, { passive: true });
+    return () => panel.removeEventListener('scroll', handleScroll);
   }, [activePanel]);
+
+  // Close the mobile drawer on Escape or when the viewport grows to desktop
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileOpen(false);
+    };
+    const mq = window.matchMedia('(min-width: 768px)');
+    const onChange = () => {
+      if (mq.matches) setMobileOpen(false);
+    };
+
+    window.addEventListener('keydown', onKey);
+    mq.addEventListener('change', onChange);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      mq.removeEventListener('change', onChange);
+    };
+  }, [mobileOpen]);
 
   const handleNav = useCallback(
     (index: number) => {
@@ -108,7 +126,7 @@ export default function Navbar({ activePanel, onNavigate }: NavbarProps) {
 
           {/* Mobile hamburger */}
           <button
-            className="md:hidden flex items-center justify-center w-10 h-10 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all"
+            className="md:hidden flex items-center justify-center w-11 h-11 -mr-1 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
@@ -117,6 +135,15 @@ export default function Navbar({ activePanel, onNavigate }: NavbarProps) {
           </button>
         </div>
       </div>
+
+      {/* Tap-outside catcher for the mobile drawer */}
+      {mobileOpen && (
+        <div
+          className="md:hidden fixed inset-0 top-16 -z-10"
+          onClick={() => setMobileOpen(false)}
+          aria-hidden="true"
+        />
+      )}
 
       {/* Mobile drawer */}
       <AnimatePresence>
@@ -128,7 +155,7 @@ export default function Navbar({ activePanel, onNavigate }: NavbarProps) {
             transition={{ duration: 0.25, ease: 'easeInOut' }}
             className="md:hidden glass-nav border-t border-white/5 overflow-hidden"
           >
-            <div className="px-4 py-3 space-y-1">
+            <div className="px-4 py-3 space-y-1 max-h-[calc(100dvh-4rem)] overflow-y-auto">
               {NAV_ITEMS.map((item, index) => {
                 const isActive = activePanel === index;
                 const Icon = item.icon;

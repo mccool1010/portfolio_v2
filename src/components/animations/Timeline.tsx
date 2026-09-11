@@ -35,21 +35,23 @@ export default function Timeline({ nodes }: TimelineProps) {
 
   return (
     <div ref={ref} className="relative max-w-2xl mx-auto py-4" role="list" aria-label="Engineering journey timeline">
-      {/* Animated line */}
+      {/* Animated line — inset to the centre of the first and last node dots
+          so it doesn't poke out above the top node or below the bottom one */}
       <motion.div
-        className="absolute left-[19px] top-0 w-[2px] bg-gradient-to-b from-accent-cyan/60 via-accent-purple/40 to-accent-cyan/20 origin-top"
+        className="absolute left-[19px] top-9 bottom-9 w-[2px] bg-gradient-to-b from-accent-cyan/60 via-accent-purple/40 to-accent-cyan/20 origin-top"
         initial={{ scaleY: 0 }}
         animate={isVisible ? { scaleY: 1 } : {}}
         transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-        style={{ height: '100%' }}
       />
 
       {nodes.map((node, index) => (
         <motion.div
           key={index}
-          className="relative flex items-start gap-4 mb-8 last:mb-0"
-          initial={{ opacity: 0, x: -20 }}
-          animate={isVisible ? { opacity: 1, x: 0 } : {}}
+          className="relative flex items-start gap-3 sm:gap-4 mb-7 sm:mb-8 last:mb-0"
+          // Enters vertically: a horizontal offset pushed the node dots past the
+          // left edge of narrow viewports for the duration of the animation.
+          initial={{ opacity: 0, y: 12 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.4, delay: 0.3 + index * 0.15 }}
           role="listitem"
         >

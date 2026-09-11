@@ -137,9 +137,14 @@ const Particles: React.FC<ParticlesProps> = ({
     const resize = () => {
       const width = container.clientWidth;
       const height = container.clientHeight;
+      if (width === 0 || height === 0) return;
       renderer.setSize(width, height);
       camera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
     };
+    // ResizeObserver also catches mobile URL-bar collapse and orientation
+    // changes, which don't always fire a window resize event.
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(container);
     window.addEventListener('resize', resize, false);
     resize();
 
@@ -206,6 +211,14 @@ const Particles: React.FC<ParticlesProps> = ({
 
     const update = (t: number) => {
       animationFrameId = requestAnimationFrame(update);
+
+      // Don't burn cycles (or phone battery) rendering a background nobody
+      // is looking at.
+      if (document.hidden) {
+        lastTime = t;
+        return;
+      }
+
       const delta = t - lastTime;
       lastTime = t;
       elapsed += delta * speed;
@@ -233,6 +246,7 @@ const Particles: React.FC<ParticlesProps> = ({
 
     return () => {
       window.removeEventListener('resize', resize);
+      resizeObserver.disconnect();
       if (moveParticlesOnHover) {
         window.removeEventListener('mousemove', handlePointerMove);
         window.removeEventListener('touchmove', handlePointerMove);
@@ -241,6 +255,8 @@ const Particles: React.FC<ParticlesProps> = ({
       if (container.contains(gl.canvas)) {
         container.removeChild(gl.canvas);
       }
+      // Free the GPU context instead of leaking it on unmount / hot reload
+      gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [

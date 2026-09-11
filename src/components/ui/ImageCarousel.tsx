@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, ChevronRight, Play, Maximize2 } from 'lucide-react';
 import type { ProjectMedia } from '../../data/projectData';
@@ -14,6 +14,12 @@ interface ImageCarouselProps {
  */
 export default function ImageCarousel({ media, projectName }: ImageCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+
+  // Reset to the first slide whenever a different project's media is shown
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [media]);
 
   // If no media, show placeholder
   if (media.length === 0) {
@@ -34,8 +40,30 @@ export default function ImageCarousel({ media, projectName }: ImageCarouselProps
   const goNext = () => setCurrentIndex((i) => (i + 1) % media.length);
   const goPrev = () => setCurrentIndex((i) => (i - 1 + media.length) % media.length);
 
+  // Swipe between slides on touch devices
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const onTouchEnd = (e: React.TouchEvent) => {
+    const start = touchStartX.current;
+    touchStartX.current = null;
+    if (start === null || !hasMultiple) return;
+    const dx = e.changedTouches[0].clientX - start;
+    if (Math.abs(dx) < 40) return;
+    if (dx < 0) goNext();
+    else goPrev();
+  };
+
   return (
-    <div className="relative aspect-[16/10] bg-surface-200 rounded-xl overflow-hidden group">
+    <div
+      className="relative aspect-[16/10] bg-surface-200 rounded-xl overflow-hidden group select-none"
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+      role="group"
+      aria-roledescription="carousel"
+      aria-label={`${projectName} screenshots`}
+    >
       {/* Current media item */}
       <AnimatePresence mode="wait">
         <motion.div
@@ -67,37 +95,49 @@ export default function ImageCarousel({ media, projectName }: ImageCarouselProps
       {/* Navigation arrows */}
       {hasMultiple && (
         <>
+          {/* Always visible on touch (no hover to reveal them); fade-in on pointer devices */}
           <button
             onClick={goPrev}
-            className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 backdrop-blur-sm text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/60"
+            className="carousel-arrow absolute left-2 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center transition-opacity hover:bg-black/70"
             aria-label="Previous image"
           >
-            <ChevronLeft size={18} />
+            <ChevronLeft size={20} />
           </button>
           <button
             onClick={goNext}
-            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 backdrop-blur-sm text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/60"
+            className="carousel-arrow absolute right-2 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center transition-opacity hover:bg-black/70"
             aria-label="Next image"
           >
-            <ChevronRight size={18} />
+            <ChevronRight size={20} />
           </button>
+
+          {/* Slide counter — orientation on a small screen */}
+          <div className="absolute top-3 right-3 px-2 py-0.5 rounded text-[10px] font-semibold bg-black/50 text-white backdrop-blur-sm tabular-nums">
+            {currentIndex + 1} / {media.length}
+          </div>
         </>
       )}
 
       {/* Dot indicators */}
       {hasMultiple && (
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex items-center">
           {media.map((_, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentIndex(idx)}
-              className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${
-                idx === currentIndex
-                  ? 'bg-accent-cyan w-4'
-                  : 'bg-white/30 hover:bg-white/60'
-              }`}
+              // Small dot, generous invisible tap target around it
+              className="grid place-items-center w-6 h-9 group/dot"
               aria-label={`Go to image ${idx + 1}`}
-            />
+              aria-current={idx === currentIndex}
+            >
+              <span
+                className={`h-1.5 rounded-full transition-all duration-200 ${
+                  idx === currentIndex
+                    ? 'bg-accent-cyan w-4'
+                    : 'bg-white/40 w-1.5 group-hover/dot:bg-white/70'
+                }`}
+              />
+            </button>
           ))}
         </div>
       )}

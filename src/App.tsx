@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import AnimatedBackground from './components/background/AnimatedBackground';
 import Navbar from './components/navbar/Navbar';
 import PanelLayout from './components/PanelLayout';
@@ -18,6 +18,34 @@ import missSoundUrl from './assets/sounds/miss.mp3';
 const hitSound = new Audio(hitSoundUrl);
 const startSound = new Audio(startSoundUrl);
 const missSound = new Audio(missSoundUrl);
+
+/**
+ * Play a sound effect, swallowing the rejection browsers throw when audio is
+ * blocked by autoplay policy. Without this every blocked play() surfaced as an
+ * unhandled promise rejection in the console.
+ */
+function playSound(sound: HTMLAudioElement) {
+  try {
+    sound.currentTime = 0;
+    void sound.play().catch(() => {});
+  } catch {
+    /* no-op — audio is a nicety, never a failure path */
+  }
+}
+
+const gameButtonStyle: React.CSSProperties = {
+  background: 'rgba(17, 24, 39, 0.85)',
+  color: '#fff',
+  border: '1px solid rgba(255,255,255,0.2)',
+  borderRadius: 8,
+  padding: '10px 16px',
+  minHeight: 40,
+  fontWeight: 'bold',
+  fontSize: '0.875rem',
+  cursor: 'pointer',
+  pointerEvents: 'auto',
+  fontFamily: '"Space Grotesk", sans-serif',
+};
 
 function App() {
   const [activePanel, setActivePanel] = useState(0);
@@ -44,12 +72,19 @@ function App() {
       setGameActive(true);
       setScore(0);
       spawnTarget();
-      startSound.currentTime = 0;
-      startSound.play();
+      playSound(startSound);
     } else {
       setGameActive(false);
       setTarget(null);
     }
+  }, [showCrosshair, spawnTarget]);
+
+  // Respawn on resize/rotate — the target is positioned from the old viewport
+  // size and would otherwise sit off-screen and be unhittable.
+  useEffect(() => {
+    if (!showCrosshair) return;
+    window.addEventListener('resize', spawnTarget);
+    return () => window.removeEventListener('resize', spawnTarget);
   }, [showCrosshair, spawnTarget]);
 
   const handleShoot = (e: React.MouseEvent) => {
@@ -58,15 +93,13 @@ function App() {
     const dy = e.clientY - target.y;
     const distance = Math.sqrt(dx * dx + dy * dy);
     if (distance < 32) {
-      hitSound.currentTime = 0;
-      hitSound.play();
+      playSound(hitSound);
       setPop(true);
       setTimeout(() => setPop(false), 200);
       setScore((s) => s + 1);
       spawnTarget();
     } else {
-      missSound.currentTime = 0;
-      missSound.play();
+      playSound(missSound);
     }
   };
 
@@ -155,49 +188,32 @@ function App() {
               }}
             />
           )}
-          {/* Reset / Exit buttons */}
-          <button
-            onClick={(e) => { e.stopPropagation(); resetGame(); }}
+          {/* Reset / Exit — a flex row so they never collide with the score
+              readout or run off the edge of a narrow screen */}
+          <div
             style={{
               position: 'absolute',
-              top: 20,
-              right: 40,
+              top: 16,
+              right: 16,
               zIndex: 3,
-              background: 'rgba(17, 24, 39, 0.8)',
-              color: '#fff',
-              border: '1px solid rgba(255,255,255,0.2)',
-              borderRadius: 8,
-              padding: '8px 18px',
-              fontWeight: 'bold',
-              fontSize: '0.875rem',
-              cursor: 'pointer',
+              display: 'flex',
+              gap: 8,
               pointerEvents: 'auto',
-              fontFamily: '"Space Grotesk", sans-serif',
             }}
           >
-            Reset
-          </button>
-          <button
-            onClick={(e) => { e.stopPropagation(); setShowCrosshair(false); }}
-            style={{
-              position: 'absolute',
-              top: 20,
-              right: 140,
-              zIndex: 3,
-              background: 'rgba(185, 28, 28, 0.8)',
-              color: '#fff',
-              border: '1px solid rgba(255,255,255,0.2)',
-              borderRadius: 8,
-              padding: '8px 18px',
-              fontWeight: 'bold',
-              fontSize: '0.875rem',
-              cursor: 'pointer',
-              pointerEvents: 'auto',
-              fontFamily: '"Space Grotesk", sans-serif',
-            }}
-          >
-            Exit
-          </button>
+            <button
+              onClick={(e) => { e.stopPropagation(); setShowCrosshair(false); }}
+              style={{ ...gameButtonStyle, background: 'rgba(185, 28, 28, 0.85)' }}
+            >
+              Exit
+            </button>
+            <button
+              onClick={(e) => { e.stopPropagation(); resetGame(); }}
+              style={gameButtonStyle}
+            >
+              Reset
+            </button>
+          </div>
         </div>
       )}
     </>

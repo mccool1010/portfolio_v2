@@ -5,7 +5,6 @@ import {
   FlaskConical,
   Trophy,
   Calendar,
-  MapPin,
   ExternalLink,
   Github,
 } from 'lucide-react';
@@ -35,77 +34,185 @@ interface ExperienceItem {
 
 // ─── Data ──────────────────────────────────────────
 const TIMELINE_NODES = [
-  { label: 'Started B.Tech', sublabel: 'October 2022' },
-  { label: 'Programming Fundamentals', sublabel: 'C, Java, Python' },
-  { label: 'Machine Learning', sublabel: 'Stanford ML Specialization' },
-  { label: 'Deep Learning & CV', sublabel: 'TensorFlow, OpenCV' },
+  { label: 'Started B.Tech', sublabel: 'LBSCEK, 2022' },
+  { label: 'Hackathons', sublabel: 'MediHack 2nd · NASA Space Apps 2024' },
+  { label: 'Cybersecurity Intern', sublabel: 'C-DAC Noida, Aug–Oct 2024' },
+  { label: 'Cybersecurity Trainer', sublabel: 'LBSCEK, Mar 2025' },
+  { label: 'Full-Stack Intern', sublabel: 'Hexinox, Kochi, Jun–Jul 2025' },
   { label: 'Research', sublabel: 'SlipSense — Landslide Prediction' },
-  { label: 'Hackathons & Events', sublabel: 'RIBC, NASA, MediHack' },
+  { label: 'Graduated B.Tech CSE', sublabel: 'April 2026 · CGPA 7.42' },
   { label: 'Present', sublabel: 'Building AI Systems', isCurrent: true },
 ];
 
-const EXPERIENCES: ExperienceItem[] = [];
+const EXPERIENCES: ExperienceItem[] = [
+  {
+    id: 'hexinox',
+    type: 'experience',
+    title: 'Full-Stack Developer Intern',
+    organization: 'Hexinox Innovations Pvt. Ltd., Kochi',
+    summary: 'Built and deployed database-driven MERN applications with auth workflows.',
+    duration: 'Jun – Jul 2025',
+    role: 'Full-Stack Developer Intern',
+    description:
+      'Seven-day offline internship at Hexinox Innovations, Kochi (Cochin SEZ), in Full Stack Development (MERN) with AI. Built database-driven web applications end to end — user-facing forms, authentication, and deployment.',
+    responsibilities: [
+      'Developed full-stack web applications using React, JavaScript, MongoDB, and Supabase, including a database-driven shopping platform with user-facing forms and authentication workflows',
+      'Implemented CRUD workflows, REST API integrations, authentication, login, and password-protected account functionality, including a forgot-password flow',
+      'Integrated Supabase certificate upload and storage workflows with MongoDB-backed application data',
+      'Deployed web applications through Netlify using Git/GitHub, validating frontend and backend behaviour through browser and network inspection',
+    ],
+    skills: ['React', 'JavaScript', 'MongoDB', 'Supabase', 'Node.js', 'REST APIs', 'Authentication', 'Netlify', 'Git'],
+    keyTakeaways: [
+      'Owning a feature from schema through UI to a live deployment',
+      'Wiring third-party storage (Supabase) into an existing MongoDB data model',
+      'Debugging full-stack issues from the network layer up',
+    ],
+    image: '/assets/achievements/hexinox_mern_internship.jpg',
+  },
+  {
+    id: 'lbscek-trainer',
+    type: 'experience',
+    title: 'Cybersecurity Trainer',
+    organization: 'Cyber Community, LBS College of Engineering Kasaragod',
+    summary: 'Delivered cryptography training to 50+ students in the Hack the Weeks series.',
+    duration: 'March 2025',
+    role: 'Trainer / Speaker',
+    description:
+      'Conducted "Cryptography and Secure Communication" in the Hack the Weeks online webinar series organised by the Cyber Community at LBS College of Engineering, Kasaragod. Recognised with a Certificate of Appreciation on 30 March 2025.',
+    responsibilities: [
+      'Delivered hands-on cybersecurity training to 50+ students, covering cryptography from fundamentals through advanced concepts',
+      'Led practical exercises involving encryption, Python scripting, and applied cybersecurity concepts',
+      'Designed session material for a mixed-experience student audience',
+    ],
+    skills: ['Cryptography', 'Network Security', 'Encryption', 'Python', 'Teaching', 'Public Speaking'],
+    keyTakeaways: [
+      'Explaining cryptographic primitives to an audience with no prior background',
+      'Building runnable exercises that hold attention in an online format',
+    ],
+    image: '/assets/achievements/crypto_webinar_lbscek.jpg',
+  },
+  {
+    id: 'cdac',
+    type: 'experience',
+    title: 'Cybersecurity Intern',
+    organization: 'C-DAC Noida (MeitY, Govt. of India)',
+    summary: 'Malware analysis in an isolated VM environment using Cuckoo Sandbox.',
+    duration: 'Aug – Oct 2024',
+    role: 'Cybersecurity Intern',
+    description:
+      'Worked under the Cyber Gyan Project at C-DAC Noida, supported by the Ministry of Electronics and Information Technology, analysing suspicious files in an isolated virtual-machine environment. Completed the accompanying 25-hour Ethical Hacking and Penetration Testing training programme (19 Aug – 3 Oct 2024).',
+    responsibilities: [
+      'Analysed suspicious files in an isolated virtual-machine environment using Cuckoo Sandbox, examining runtime behaviour, system calls, processes, and network activity',
+      'Correlated sandbox findings with VirusTotal results to investigate and profile malware samples',
+      'Assisted in sandbox execution, behavioural analysis, and threat profiling workflows',
+    ],
+    skills: ['Cuckoo Sandbox', 'Malware Analysis', 'VirtualBox', 'VirusTotal', 'Linux', 'Threat Profiling', 'Cybersecurity'],
+    keyTakeaways: [
+      'Dynamic analysis reveals behaviour that static inspection misses entirely',
+      'Corroborating sandbox output against external intelligence before drawing conclusions',
+    ],
+    image: '/assets/achievements/cdac_ethical_hacking.jpg',
+  },
+];
 
 const RESEARCH: ExperienceItem[] = [
   {
     id: 'slipsense',
     type: 'research',
-    title: 'SlipSense — AI-based Landslide Prediction',
-    organization: 'LBS College of Engineering',
-    summary: 'Conference paper on AI-powered landslide prediction system.',
-    duration: '2024',
-    role: 'Primary Researcher',
+    title: 'SlipSense — Landslide Susceptibility & Runout Prediction',
+    organization: 'LBS College of Engineering, Kasaragod',
+    summary: 'Pixel-level landslide susceptibility and runout modelling for Kerala.',
+    duration: '2025 – 2026',
+    role: 'Primary Researcher & Developer',
     description:
-      'Developed an AI-powered landslide prediction system using machine learning models trained on geospatial and meteorological data. Published research findings at a national conference.',
+      'Engineered a pixel-level landslide susceptibility pipeline for Kerala using 9 DEM-derived terrain features, combining Random Forest and U-Net with D8 flow-based runout modelling, and delivered it as a live GIS dashboard with district-level SMS alerting.',
     responsibilities: [
-      'Designed the ML pipeline for landslide prediction',
-      'Collected and preprocessed geospatial datasets',
-      'Trained and evaluated multiple prediction models',
-      'Authored and presented the conference paper',
+      'Derived 9 terrain features from DEM data — slope, aspect, flow accumulation, TWI, SPI, relief, drainage density, and river proximity',
+      'Built a two-stage ML/DL workflow combining Random Forest and U-Net to generate and spatially refine susceptibility rasters',
+      'Implemented D8 flow-based runout modelling to trace debris transit and deposition zones',
+      'Sourced and processed CartoDEM/SRTM elevation data, GSI/KSDMA historical landslide records, and live OpenWeather data',
+      'Classified terrain into a 4-tier hazard system (Safe, Deposition, Transit, Failure) with a combined susceptibility-plus-rainfall risk score',
     ],
-    skills: ['Python', 'TensorFlow', 'Machine Learning', 'Data Science', 'Research', 'GIS'],
+    skills: ['Python', 'PyTorch', 'U-Net', 'Random Forest', 'Rasterio', 'GDAL', 'FastAPI', 'GIS', 'Remote Sensing'],
     keyTakeaways: [
-      'End-to-end ML research pipeline experience',
-      'Scientific writing and conference presentation',
-      'Working with real-world geospatial data',
+      'Training pixel-level models on sparse, spatially clustered ground-truth labels',
+      'Turning a research pipeline into an interactive system people can actually query',
+      'Working with real geospatial data sources — CartoDEM, SRTM, GSI, KSDMA',
     ],
     links: [
-      { label: 'GitHub', href: '#', icon: 'github' },
-      { label: 'View Paper', href: '#', icon: 'external' },
+      { label: 'GitHub', href: 'https://github.com/mccool1010/Slipsense', icon: 'github' },
+      { label: 'Live Demo', href: 'https://slipsense-sage.vercel.app', icon: 'external' },
     ],
   },
 ];
 
 const ACHIEVEMENTS: ExperienceItem[] = [
   {
-    id: 'ribc',
+    id: 'icpc-huawei',
     type: 'achievement',
-    title: 'RIBC Hackathon',
-    organization: 'RIBC',
-    summary: 'Participated in competitive hackathon.',
-    description: 'Participated in the RIBC Hackathon, building solutions under tight deadlines.',
-    skills: ['Problem Solving', 'Teamwork', 'Rapid Prototyping'],
-    image: '/assets/achievements/ribc hackathon/Screenshot_2026-07-22-16-09-01-72_254de13a4bc8758c9908fff1f73e3725.jpg',
-  },
-  {
-    id: 'nasa',
-    type: 'achievement',
-    title: 'NASA Space Apps Challenge',
-    organization: 'NASA',
-    summary: 'Game development for space-themed challenge.',
-    description: 'Developed a space-themed game for the NASA Space Apps Challenge, applying creative problem-solving to simulate space exploration scenarios.',
-    skills: ['Game Development', 'Creative Problem Solving', 'Space Science'],
-    image: '/assets/achievements/nasa space apps/IMG_20260722_155111.jpg',
+    title: 'ICPC 2026 Online Challenge — Rank #2632 of 33,953',
+    organization: 'ICPC, powered by Huawei (Codeforces)',
+    summary: 'Top-8% global finish on an edge-cloud LLM inference scheduling problem.',
+    duration: '2026',
+    description:
+      'Finished #2632 out of 33,953 participants — the top 8% globally — in ICPC 2026 Online Challenge 1 powered by Huawei, hosted on Codeforces, scoring 13,407.172 points on an edge-cloud LLM inference scheduling problem.',
+    skills: ['Algorithms', 'Optimization', 'Scheduling', 'Competitive Programming', 'C++'],
+    keyTakeaways: [
+      'Heuristic search under a hard scoring function and tight time limits',
+      'Reasoning about latency/throughput trade-offs in distributed inference',
+    ],
   },
   {
     id: 'medihack',
     type: 'achievement',
-    title: 'MediHack',
-    organization: 'MediHack Hackathon',
-    summary: 'Built a full-stack telemedicine platform.',
-    description: 'Developed a full-stack telemedicine platform featuring a medicine marketplace, real-time video/voice chat, patient consent management, and doctor access to medical records.',
-    skills: ['Full-Stack', 'Real-time Communication', 'Healthcare Tech', 'React'],
+    title: 'MediHack 2024 — 2nd Prize',
+    organization: 'IEEE Computer Society Student Chapter, LBSCEK',
+    summary: '2nd place (₹7,000) at a 24-hour national-level hackathon.',
+    duration: '2024',
+    description:
+      'Won 2nd Prize (₹7,000) with Team Anonymous at MediHack, a 24-hour national-level hackathon organised by the IEEE Computer Society Student Chapter at LBSCEK. Built a full-stack telemedicine platform featuring a medicine marketplace, real-time video/voice chat, patient consent management, and doctor access to medical records.',
+    skills: ['Full-Stack', 'Real-time Communication', 'Healthcare Tech', 'React', 'Teamwork'],
+    keyTakeaways: [
+      'Scoping a working telemedicine demo inside 24 hours',
+      'Splitting real-time and CRUD workstreams across a five-person team',
+    ],
     image: '/assets/achievements/medihack.jpg',
+  },
+  {
+    id: 'nasa',
+    type: 'achievement',
+    title: 'NASA Space Apps Challenge 2024 — Galactic Problem Solver',
+    organization: 'NASA International Space Apps Challenge',
+    summary: 'Recognised for outstanding participation at the global 2024 hackathon.',
+    duration: 'October 2024',
+    description:
+      'Awarded the Galactic Problem Solver certificate at the 2024 NASA International Space Apps Challenge (5–6 October 2024) for outstanding participation and efforts to address challenges faced on Earth and in space.',
+    skills: ['Creative Problem Solving', 'Space Science', 'Rapid Prototyping', 'Teamwork'],
+    image: '/assets/achievements/nasa_space_apps.jpg',
+  },
+  {
+    id: 'ribc',
+    type: 'achievement',
+    title: 'RIBC Agri-Tech Hackathon',
+    organization: 'ICAR–CPCRI, Kasaragod',
+    summary: 'Agri-tech hackathon hosted at Central University of Kerala.',
+    duration: '2024',
+    description:
+      'Participated in the RIBC agri-tech hackathon run with ICAR–CPCRI at Central University of Kerala, Kasaragod, prototyping a solution to an agricultural problem statement under a fixed deadline and pitching it to a jury.',
+    skills: ['Problem Solving', 'Rapid Prototyping', 'Agri-Tech', 'Teamwork'],
+    image: '/assets/achievements/ribc_hackathon/ribc_team.jpg',
+  },
+  {
+    id: 'cgaming',
+    type: 'achievement',
+    title: 'C Gaming — Yagna Dhruva ’24',
+    organization: 'LBS Institute of Technology for Women',
+    summary: 'C programming event at an intra-collegiate techno-cultural fest.',
+    duration: 'April 2024',
+    description:
+      'Participated in C Gaming, a C programming event at Yagna Dhruva, the intra-collegiate techno-cultural fest conducted by LBS Institute of Technology for Women on 6 April 2024.',
+    skills: ['C Programming', 'Problem Solving', 'Competition'],
+    image: '/assets/achievements/cgaming_yagna_dhruva.jpg',
   },
   {
     id: 'techlift',
@@ -113,28 +220,9 @@ const ACHIEVEMENTS: ExperienceItem[] = [
     title: 'Techlift Hackathon',
     organization: 'Techlift',
     summary: 'Frontend for real-time heart rate monitoring and alerts.',
-    description: 'Created a responsive frontend for a heart rate monitoring and real-time alert application during the Techlift Hackathon.',
+    description:
+      'Created a responsive frontend for a heart rate monitoring and real-time alert application during the Techlift Hackathon.',
     skills: ['React', 'Frontend', 'Real-time', 'Healthcare'],
-  },
-  {
-    id: 'cgaming',
-    type: 'achievement',
-    title: 'CGaming Event',
-    organization: 'CGaming',
-    summary: 'Participated in competitive gaming and tech event.',
-    description: 'Participated in the CGaming event, combining gaming skills with technical knowledge in a competitive environment.',
-    skills: ['Game Development', 'Competition', 'Technical Skills'],
-    image: '/assets/achievements/cgaming/IMG_20260722_155135.jpg',
-  },
-  {
-    id: 'microsoft-ai-fest',
-    type: 'achievement',
-    title: 'Microsoft AI Skills Fest',
-    organization: 'Microsoft',
-    summary: 'Completed Microsoft AI skills challenge.',
-    description: 'Participated in the Microsoft AI Skills Fest, gaining hands-on experience with Microsoft AI tools, Azure AI services, and applied AI problem-solving techniques.',
-    skills: ['Azure AI', 'Microsoft AI', 'Cloud Computing', 'AI Tools'],
-    image: '/assets/achievements/microsoft_ai_skills_fest/Screenshot_2026-07-22-15-57-29-56_254de13a4bc8758c9908fff1f73e3725.jpg',
   },
 ];
 
@@ -152,7 +240,7 @@ export default function Experience({ isActive }: ExperienceProps) {
   }, [isActive]);
 
   const renderExpandedContent = (item: ExperienceItem) => (
-    <div className="grid md:grid-cols-[40%_60%] gap-8">
+    <div className="grid md:grid-cols-[40%_60%] gap-6 md:gap-8">
       {/* Left — Image placeholder */}
       <div className="relative aspect-[4/3] bg-gradient-to-br from-surface-200 to-surface-300 rounded-xl flex items-center justify-center overflow-hidden">
         {item.image ? (
@@ -270,17 +358,17 @@ export default function Experience({ isActive }: ExperienceProps) {
   );
 
   return (
-    <div className="section-padding pt-24">
+    <div className="section-padding pt-20 sm:pt-24">
       <div className="max-w-6xl mx-auto">
         {/* ─── Header ─── */}
-        <div className="mb-16">
+        <div className="mb-10 sm:mb-16">
           <TextReveal
             text="Experience"
             as="h2"
             className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-white"
           />
           <motion.p
-            className="mt-4 text-lg text-gray-400"
+            className="mt-3 sm:mt-4 text-base sm:text-lg text-gray-400"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -291,7 +379,7 @@ export default function Experience({ isActive }: ExperienceProps) {
         </div>
 
         {/* ─── Timeline ─── */}
-        <div className="mb-20">
+        <div className="mb-14 sm:mb-20">
           <Timeline nodes={TIMELINE_NODES} />
         </div>
 

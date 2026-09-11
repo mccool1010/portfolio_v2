@@ -2,4 +2,4 @@
  ⏫⏫⏬⏬⬅️➡️⬅️➡️🅱️🅰️
 
 😇☕
- https://myportfolio-v-two.netlify.app/
+ https://portfolio-v2-seven-ruddy.vercel.app

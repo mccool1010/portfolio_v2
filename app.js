@@ -267,7 +267,7 @@
     if (instant) { track.style.transition = 'none'; pagesEl.style.transition = 'none'; }
     track.style.transform = `translateX(${-idx * 100 / 3}%)`;
     ORDER.forEach((k) => { pages[k].setAttribute('aria-hidden', String(k !== name)); pages[k].inert = k !== name; });
-    tabs.forEach((t) => { t.classList.toggle('on', t.dataset.go === name); t.setAttribute('aria-selected', String(t.dataset.go === name)); });
+    tabs.forEach((t) => { const on = t.dataset.go === name; t.classList.toggle('on', on); on ? t.setAttribute('aria-current', 'page') : t.removeAttribute('aria-current'); });
     movePill(instant); fitHeight();
     if (changed && !instant) scrollTo({ top: 0, behavior: 'instant' });
     document.title = name === 'work' ? 'Hari Krishna · Software Engineer, AI/ML' : `${name === 'contact' ? 'Contact' : 'Open source'} · Hari Krishna`;

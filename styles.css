@@ -276,10 +276,10 @@ h2 { margin: 0; font-weight: 500; font-size: clamp(32px, 4.6vw, 52px); line-heig
 }
 
 /* PAGES: three views on a horizontal track */
-.pages { overflow: hidden; position: relative; transition: height .5s var(--ease-io); }
-.track { display: flex; align-items: flex-start; width: 300%; transition: transform .5s var(--ease-io); will-change: transform; }
+.pages { overflow: hidden; position: relative; }
+.track { display: flex; align-items: flex-start; width: 300%; transition: transform 400ms var(--ease-io); }
 .page { width: calc(100% / 3); flex: none; min-height: 100svh; }
-.page[aria-hidden="true"] { visibility: hidden; transition: visibility 0s .5s; }
+.page[aria-hidden="true"] { visibility: hidden; transition: visibility 0s .4s; }
 .side-first { padding-top: 130px; }
 .page-foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 64px; }
 
@@ -346,7 +346,7 @@ h2 { margin: 0; font-weight: 500; font-size: clamp(32px, 4.6vw, 52px); line-heig
   .hero-copy > * { animation-name: fade-only; animation-duration: .3s; }
   .js .case:not(.in) { transform: none; }
   .btn:active, .go-card:active, .repo:active, .link-grid a:active { transform: none; }
-  .track, .pages, .tab-pill { transition: none !important; }
+  .track, .tab-pill, .tabs a { transition: none !important; }
   html { scroll-behavior: auto; }
   .dot.live, .skeleton { animation: none; }
 }

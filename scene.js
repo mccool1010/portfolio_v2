@@ -606,7 +606,7 @@
 
   window.Scenes = {
     hero,
-    mount(canvas, kind) { (scenes[kind] || scenes.orb)(canvas); },
+    mount(canvas, kind) { (scenes[kind] || scenes.diff)(canvas); }, // unknown scene: the generic code-change animation
     get paused() { return PAUSED; },
     reduced: REDUCED,
     setPaused(v) {

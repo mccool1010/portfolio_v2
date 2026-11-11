@@ -58,7 +58,10 @@
 
   // ---- stats ---------------------------------------------------------------
   const lastActivity = [gh.events[0]?.at, ...gh.repos.map((r) => r.pushed_at)].filter(Boolean).sort().pop();
-  $('#stats').innerHTML = profile.stats.map((s) => {
+  const ed0 = profile.education || {};
+  const degree = (ed0.degree || '').replace(/,\s*Computer Science (&|and) Engineering$/i, ' CSE');
+  const fit = profile.role ? `<li><b>${esc(profile.role)}</b>${degree ? ` · ${esc(degree)}${ed0.when ? ` ${esc(ed0.when.replace(/\s*[–-]\s*/, '–'))}` : ''}` : ''}</li>` : '';
+  $('#stats').innerHTML = fit + profile.stats.map((s) => {
     if (s.auto === 'lastPush') { const v = ago(lastActivity); return v ? `<li>${esc(s.label)} <b>${esc(v)}</b></li>` : ''; }
     let v = s.value, label = s.label;
     if (s.auto === 'mergedPRs') { v = gh.prs.filter((p) => p.state === 'merged').length; if (!v) return ''; if (v !== 1) label = label.replace(/^PR\b/, 'PRs'); }

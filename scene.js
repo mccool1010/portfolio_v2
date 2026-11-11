@@ -220,7 +220,7 @@
   // SecureVision: walking pose skeleton on a depth floor with a detection box
   scenes.pose = function (canvas) {
     run(canvas, (ctx, w, h, t) => {
-      const cam = camera(Math.sin(t * .25) * .5 + .3, .18, Math.min(w, h) * .5, w / 2, h * .62);
+      const cam = camera(Math.sin(t * .25) * .5 + .3, .18, Math.min(w * .5, h * .4), w / 2, h * .56);
       // floor grid (depth)
       ctx.lineWidth = 1;
       for (let i = -6; i <= 6; i++) {
@@ -250,8 +250,10 @@
       const x0 = Math.min(...xs) - 18, x1 = Math.max(...xs) + 18, y0 = Math.min(...ys) - 26, y1 = Math.max(...ys) + 10;
       ctx.strokeStyle = rgba(C.amber, .8); ctx.lineWidth = 1; ctx.setLineDash([5, 4]); ctx.strokeRect(x0, y0, x1 - x0, y1 - y0); ctx.setLineDash([]);
       const conf = (.92 + Math.sin(t * 1.7) * .04).toFixed(2);
-      ctx.fillStyle = rgba(C.amber, 1); ctx.fillRect(x0, y0 - 18, 104, 18);
-      ctx.fillStyle = '#111'; ctx.font = '500 11px "Geist Mono", monospace'; ctx.fillText(`person ${conf} · walk`, x0 + 6, y0 - 5);
+      const tag = `person ${conf} · walk`;
+      ctx.font = '500 11px "Geist Mono", monospace';
+      ctx.fillStyle = rgba(C.amber, 1); ctx.fillRect(x0, y0 - 18, ctx.measureText(tag).width + 12, 18);
+      ctx.fillStyle = '#111'; ctx.fillText(tag, x0 + 6, y0 - 5);
       // risk meter
       const risk = (Math.sin(t * .6) * .5 + .5) * .7;
       const mx = 18, my = h - 30, mw = Math.min(180, w * .4);
@@ -291,7 +293,7 @@
     const stages = ['data', 'tune', 'track', 'gate', 'serve'];
     const packets = Array.from({ length: 9 }, (_, i) => ({ u: -i * .22, ok: Math.random() > .4 }));
     run(canvas, (ctx, w, h, t, s) => {
-      const cam = camera(-.5 + Math.sin(t * .2) * .15, .42, Math.min(w * .9, h * 1.2) * .42, w / 2, h * .52);
+      const cam = camera(-.5 + Math.sin(t * .2) * .15, .42, Math.min(w * .78, h * 1.2) * .4, w / 2, h * .5);
       const path = (u) => [u * 2.6 - 1.3, Math.sin(u * Math.PI * 2) * .12, Math.cos(u * Math.PI) * .25];
       // track
       ctx.beginPath(); for (let i = 0; i <= 60; i++) { const p = cam(...path(i / 60)); i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); }
@@ -388,7 +390,7 @@
     const series = Array.from({ length: N + H }, (_, i) => Math.sin(i * .32) * .32 + Math.sin(i * .11 + 1) * .18 + i * .006 + (noise(i * .7, 3) - .5) * .18);
     run(canvas, (ctx, w, h, t) => {
       const cyc = (t / 9) % 1, fixed = cyc > .5, ph = fixed ? (cyc - .5) * 2 : cyc * 2;
-      const cam = camera(-.35 + Math.sin(t * .18) * .12, .28, Math.min(w * .95, h * 1.5) * .42, w / 2, h * .5);
+      const cam = camera(-.35 + Math.sin(t * .18) * .12, .28, Math.min(w * .95, h * 1.15) * .4, w / 2, h * .47);
       const X = (i) => (i / (N + H - 1)) * 2.4 - 1.2;
       const font = '500 11px "Geist Mono", monospace';
       // floor ticks = the index
@@ -465,7 +467,7 @@
       const s1 = box(-1.0, .45, 0, .16, .12, .12, C.cyan, .7), s2 = box(-1.0, -.45, 0, .16, .12, .12, C.amber, .7);
       const lb1 = cam(-1.0, .27, 0), lb2 = cam(-1.0, -.63, 0);
       ctx.fillStyle = rgba(C.cyan, .85); ctx.fillText('upstream', lb1[0] - 26, lb1[1] + 14);
-      ctx.fillStyle = rgba(C.amber, .85); ctx.fillText('PyTorch', lb2[0] - 24, lb2[1] + 14);
+      ctx.fillStyle = rgba(C.amber, .85); ctx.fillText('PyTorch', lb2[0] - 24, lb2[1] + 28);
       const sv = box(.85, 0, 0, .26, .42, .2, C.ink, .45), svl = cam(.85, -.42, 0);
       ctx.fillStyle = rgba(C.ink, .6); ctx.fillText('download server', svl[0] - 50, svl[1] + 18);
       if (fixed) { // two shelves

@@ -495,6 +495,63 @@
     }, { still: 8500 });
   };
 
+  // Presidio: list[PatternRecognizer] is rejected by a List[EntityRecognizer] slot
+  // (List is invariant); widened to Sequence (covariant), the same box fits
+  scenes.types = function (canvas) {
+    run(canvas, (ctx, w, h, t) => {
+      const cyc = (t / 10) % 1, fixed = cyc > .5, ph = fixed ? (cyc - .5) * 2 : cyc * 2;
+      const cam = camera(-.25 + Math.sin(t * .2) * .1, .3, Math.min(w * .3, h * .5), w / 2, h * .48);
+      const font = '500 11px "Geist Mono", monospace'; ctx.font = font;
+      const ease = (u) => u * u * (3 - 2 * u);
+      // centred label, kept inside the canvas
+      const label = (text, x, y, col) => { const tw = ctx.measureText(text).width; ctx.fillStyle = col; ctx.fillText(text, clamp(x - tw / 2, 12, w - 12 - tw), y); return tw; };
+      const V = [[-1, -1, -1], [1, -1, -1], [1, 1, -1], [-1, 1, -1], [-1, -1, 1], [1, -1, 1], [1, 1, 1], [-1, 1, 1]];
+      const edges = (cx, cy, cz, bw, bh, bd, list, col, a) => {
+        const v = V.map(([x, y, z]) => cam(cx + x * bw, cy + y * bh, cz + z * bd));
+        ctx.strokeStyle = rgba(col, a);
+        list.forEach(([p, q]) => { ctx.beginPath(); ctx.moveTo(v[p][0], v[p][1]); ctx.lineTo(v[q][0], v[q][1]); ctx.stroke(); });
+      };
+      const ALL = [[0, 1], [1, 2], [2, 3], [3, 0], [4, 5], [5, 6], [6, 7], [7, 4], [0, 4], [1, 5], [2, 6], [3, 7]];
+      const OPEN = [[1, 2], [5, 6], [1, 5], [2, 6], [0, 1], [4, 5], [3, 2], [7, 6]]; // no left face: a socket
+
+      // the slot (parameter type) and the box (argument type)
+      const sx = .55, sw = .27, sh = .18, sd = .16, bw = .2, bh = .13, bd = .12, start = -1.05;
+      let x, done;
+      if (!fixed) { // stops at the mouth of the slot, then recoils
+        const u = clamp(ph * 1.6, 0, 1), contact = sx - sw - bw;
+        x = start + (contact - start) * ease(u);
+        done = u >= 1;
+        if (done) x = contact - .14 * ease(clamp((ph - .625) / .12, 0, 1));
+      } else { // slides all the way in
+        const u = clamp(ph * 1.4, 0, 1);
+        x = start + (sx - start) * ease(u);
+        done = u >= 1;
+      }
+      const verdictCol = fixed ? C.mint : C.coral;
+      ctx.lineWidth = 1;
+      edges(sx, 0, 0, sw, sh, sd, OPEN, done ? verdictCol : C.ink, done ? .9 : .45);
+      ctx.lineWidth = 1.4;
+      edges(x, 0, 0, bw, bh, bd, ALL, C.cyan, .85);
+
+      const top = cam(x, bh, 0), sTop = cam(sx, sh, 0), sBot = cam(sx, -sh, 0);
+      label('list[PatternRecognizer]', top[0], Math.min(top[1], sTop[1]) - 10, rgba(C.cyan, .9)); // clear of the slot's top edge
+      label(fixed ? 'Sequence[EntityRecognizer]' : 'List[EntityRecognizer]', sBot[0], sBot[1] + 22, fixed ? rgba(C.amber, .95) : rgba(C.ink, .6));
+
+      if (done) { // verdict above the slot: a mark drawn with lines, then the text
+        const msg = fixed ? 'mypy --strict: 3 errors → 1' : 'mypy: incompatible type';
+        const tw = ctx.measureText(msg).width, mk = 10, gap = 8;
+        const lx = clamp(sTop[0] - (tw + mk + gap) / 2, 12, w - 12 - tw - mk - gap), ly = sTop[1] - 34;
+        ctx.strokeStyle = rgba(verdictCol, 1); ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.beginPath();
+        if (fixed) { ctx.moveTo(lx, ly - 4); ctx.lineTo(lx + 3.5, ly); ctx.lineTo(lx + mk, ly - 8); }
+        else { ctx.moveTo(lx, ly - 9); ctx.lineTo(lx + mk, ly + 1); ctx.moveTo(lx + mk, ly - 9); ctx.lineTo(lx, ly + 1); }
+        ctx.stroke(); ctx.lineCap = 'butt';
+        ctx.fillStyle = rgba(verdictCol, .95); ctx.fillText(msg, lx + mk + gap, ly);
+      }
+      ctx.fillStyle = fixed ? rgba(C.mint, .9) : rgba(C.coral, .9);
+      ctx.fillText(fixed ? 'after · Sequence is covariant' : 'before · List is invariant', 16, h - 18);
+    }, { still: 9200 }); // still frame: box seated, check and verdict showing
+  };
+
   // Default for future PRs: a diff sheet, red lines out, green lines in
   scenes.diff = function (canvas) {
     let s = 3; const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);

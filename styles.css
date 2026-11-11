@@ -243,14 +243,18 @@ h2 { margin: 0; font-weight: 500; font-size: clamp(32px, 4.6vw, 52px); line-heig
 .contact-meta { display: flex; flex-wrap: wrap; gap: 28px; margin: 28px 0 0; }
 .contact-meta dt { font: 500 13px var(--sans); color: var(--muted); }
 .contact-meta dd { margin: 6px 0 0; font-size: 15px; }
-.link-grid { list-style: none; padding: 0; margin: 56px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.link-grid { list-style: none; padding: 0; margin: 56px 0 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
+/* three a row; a short last row shares the full width instead of leaving a hole */
+.link-grid li { grid-column: span 2; }
+.link-grid li:nth-last-child(2):nth-child(3n+1), .link-grid li:last-child:nth-child(3n+2) { grid-column: span 3; }
+.link-grid li:last-child:nth-child(3n+1) { grid-column: span 6; }
 .link-grid a { display: flex; flex-direction: column; gap: 4px; padding: 20px 22px; border: 1px solid var(--line); border-radius: var(--r); background: var(--bg-2); transition: border-color .2s ease, transform .2s var(--ease-out); min-width: 0; }
 .link-grid a:hover { border-color: var(--amber); }
 .link-grid b { font-weight: 500; font-size: 17px; display: flex; justify-content: space-between; }
 .link-grid b span { color: var(--dim); transition: color .2s ease, transform .2s var(--ease-out); }
 .link-grid a:hover b span { color: var(--amber); }
 .link-grid small { font: 400 12px var(--mono); color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.big { font-size: clamp(44px, 8vw, 104px); line-height: .95; letter-spacing: -.045em; max-width: 14ch; }
+.big { font-size: clamp(44px, 6.4vw, 84px); line-height: .98; letter-spacing: -.04em; max-width: 14ch; }
 .big em { font: italic 400 1em var(--serif); color: var(--amber); letter-spacing: -.02em; }
 .contact-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin: 44px 0 24px; }
 .email { font-size: clamp(20px, 3vw, 30px); border-bottom: 1px solid var(--line-2); padding-bottom: 4px; transition: border-color .2s, color .2s; word-break: break-all; }
@@ -346,7 +350,7 @@ h2 { margin: 0; font-weight: 500; font-size: clamp(32px, 4.6vw, 52px); line-heig
   .hero { align-items: flex-end; padding-top: 32svh; padding-bottom: 40px; }
   .hero::after { background: linear-gradient(0deg, var(--bg) 35%, rgba(var(--bg-rgb),.6) 55%, rgba(var(--bg-rgb),0) 75%); }
   .contact-grid { grid-template-columns: 1fr; }
-  .globe-wrap { height: 280px; order: -1; }
+  .globe-wrap { height: 200px; } /* after the headline and email: the conversion point comes first */
   .next-links { grid-template-columns: 1fr; }
   .pr-head { flex-direction: column; align-items: flex-start; }
   .hint { display: none; }

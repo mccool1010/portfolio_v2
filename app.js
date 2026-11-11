@@ -148,7 +148,7 @@
   }).join('') || '<p class="muted">Upstream pull requests appear here automatically.</p>';
 
   // ---- contact links ---------------------------------------------------------
-  $('#link-grid').innerHTML = (profile.contactLinks || []).map((l) => {
+  $('#link-grid').innerHTML = (profile.contactLinks || []).filter((l) => l.key !== 'email').map((l) => {
     const href = l.key === 'email' ? `mailto:${profile.email}` : profile.links[l.key];
     if (!href) return '';
     const ext = /^https?:/.test(href);

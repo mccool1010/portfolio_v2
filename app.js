@@ -4,6 +4,9 @@
   const $ = (s, el = document) => el.querySelector(s);
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const DAY = 864e5;
+  const reduceMQ = matchMedia('(prefers-reduced-motion: reduce)');
+  // An explicit 'smooth' in JS overrides the CSS reduced-motion rule, so check it here.
+  const smooth = () => (reduceMQ.matches ? 'auto' : 'smooth');
   const ic = (n) => `<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
   const ago = (iso, short) => {
     if (!iso) return '';
@@ -273,7 +276,7 @@
     if (go) {
       e.preventDefault();
       const name = go.dataset.go;
-      if (name === current) { scrollTo({ top: 0, behavior: 'smooth' }); return; }
+      if (name === current) { scrollTo({ top: 0, behavior: smooth() }); return; }
       try { history.pushState(null, '', name === 'work' ? location.pathname + location.search : '#' + name); } catch {}
       show(name);
       return;
@@ -282,8 +285,13 @@
     if (sc) {
       e.preventDefault();
       const target = $(sc.getAttribute('href'));
-      if (current !== 'work') show('work');
-      setTimeout(() => target && target.scrollIntoView({ behavior: 'smooth', block: 'start' }), current === 'work' ? 0 : 50);
+      if (!target) return;
+      // From another tab: swap pages without sliding, so only one motion (the scroll) plays.
+      if (current !== 'work') { try { history.pushState(null, '', location.pathname + location.search); } catch {} show('work', { instant: true }); }
+      // The skip link is a keyboard action: jump, don't glide, and move focus with it.
+      const isSkip = sc.classList.contains('skip');
+      target.scrollIntoView({ behavior: isSkip ? 'auto' : smooth(), block: 'start' });
+      if (isSkip) target.focus({ preventScroll: true });
     }
   });
   addEventListener('popstate', route);

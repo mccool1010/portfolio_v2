@@ -1,91 +1,64 @@
-# Hari Krishna — Portfolio
+# Hari Krishna · Portfolio v3
 
-Personal portfolio of **Hari Krishna**, a Software Engineer working in AI/ML and full-stack
-development. Built as a single-page app with a horizontal panel system, a glassmorphism UI,
-and an animated WebGL background.
+A static site with no framework and no build step. It has an interactive 3D hero and an animated 3D scene for each project, all drawn on canvas without any libraries. Project data syncs itself from GitHub.
 
-**Live:** https://portfolio-v2-seven-ruddy.vercel.app
+## Files
 
----
+| File | What it is |
+|---|---|
+| `index.html`, `styles.css` | Page structure and design |
+| `scene.js` | 3D engine: hero terrain and the six project scenes |
+| `app.js` | Renders everything from the two data files |
+| `data/profile.json` | **Your content.** Edit this to change text, projects, stats and experience |
+| `data/github.json` | **Auto-generated.** Don't edit by hand |
+| `scripts/update-github.mjs` | Pulls your repos, PRs, events and languages from GitHub |
+| `.github/workflows/update-github.yml` | Runs that script every 6 hours and commits changes |
 
-## Tech Stack
+## Deploy (once), without touching the live site
 
-| Layer | Technology |
-| --- | --- |
-| Framework | React 18 |
-| Language | TypeScript |
-| Build | Vite 5 |
-| Styling | Tailwind CSS 3 |
-| Animation | Motion (Framer Motion) · GSAP |
-| Background | OGL (WebGL particle field) |
-| Icons | Lucide React |
-| Fonts | Space Grotesk · Inter · JetBrains Mono |
+`vercel.json` tells Vercel this is a plain static site, so no dashboard settings need changing.
 
-## Features
+1. In your existing repo, create a branch `v3`, copy these files in (replacing the old site), add `resume.pdf`, and push the branch.
+2. Vercel builds the branch at a separate **preview link**. Your live link keeps serving the old site.
+3. Check the preview on phone and desktop. When you're happy, merge `v3` into `main`. The live link now shows the new site.
+4. If anything goes wrong after merging: Vercel dashboard → Deployments → the previous production deployment → **Instant Rollback**.
+5. After merging, go to GitHub → Settings → Actions → General → Workflow permissions and choose **Read and write**. Then open Actions and run "Sync GitHub activity" once. (Scheduled runs only happen on `main`.)
 
-- **Horizontal panel navigation** — five full-viewport panels (Home, Education, Experience,
-  Projects, Contact) with slide transitions; each scrolls vertically on its own.
-- **Multiple ways to navigate** — navbar, arrow keys, and horizontal swipe on touch devices.
-- **Expandable detail cards** — projects, certificates, and roles open in a modal with a
-  focus trap, Escape-to-close, and background scroll lock.
-- **Media carousel** — swipeable on touch, with keyboard-reachable controls.
-- **Responsive from 320px up** — verified at 320 / 360 / 375 / 393 / 768 / 1440px.
-- **Respects `prefers-reduced-motion`** — the particle background drops out entirely, and
-  the count scales down on phones to save battery.
-- There's a Konami code easter egg. ⏫⏫⏬⏬⬅️➡️⬅️➡️🅱️🅰️
+## Auto-update: what happens on its own
 
-## Getting Started
+Every 6 hours the Action fetches:
+- **New repos**, which appear under "Also on GitHub". The summary comes from the repo description, or from the first paragraph of the README if there's no description.
+- **Last-updated times** on each featured project
+- **PRs you open in other projects**: merged, open or closed, with the badge set automatically
+- **Recent events** (pushes, PRs, comments), language mix and the activity chart
 
-```bash
-npm install
-npm run dev      # dev server on http://localhost:5173
-npm run build    # production build to dist/
-npm run preview  # serve the production build
-npm run lint     # eslint
+If anything changed, it commits `data/github.json` and Vercel redeploys.
+
+**For the full contribution heatmap** (optional): create a fine-grained token at GitHub → Settings → Developer settings with read-only access to public repos. Save it as a repo secret named `GH_PAT`.
+
+## Pages
+
+The site has three tabs that slide sideways: **Work** (`/`), **Open source** (`/#open-source`) and **Contact** (`/#contact`). The tabs sit in the nav next to the theme and Resume buttons. Quick-access buttons in the hero and cards at the bottom of Work link to the other two. Links to `/#open-source` or `/#contact` open straight on that tab, and the browser back button works.
+
+## Everyday edits
+
+- **Feature a new project:** add an entry to `featured` in `profile.json` with `"repo"` set to the repo name. Pick a `scene` from `terrain`, `pose`, `orb`, `pipeline`, `embeddings` or `wave`.
+- **Hide a repo from the grid:** add its name to `hideRepos`.
+- **Nicer title or summary for a repo:** add it to `repoOverrides`, or just give the repo a description on GitHub.
+- **Explain a new open-source PR:** new PRs appear automatically with a generic animation. To add the problem, the fix and a custom animation, add an entry under `prStories` keyed by the PR URL: `headline`, `problem`, `approach`, `tags`, `scene`. Scenes for PRs are `forecast`, `wheels` or `diff`; any project scene works too.
+- **Contact cards:** edit `contactLinks`. The URLs come from `links`. The `email` entry isn't drawn as a card, because the address and its Copy button already sit above the cards.
+- **Live demo links** are taken from the repo's "Website" field on GitHub automatically.
+
+## Motion
+
+The footer has a **Pause motion** button. It stops the canvas scenes on their current frame and the live-dot pulse, and the browser remembers the choice. Visitors whose system asks for reduced motion get still scenes automatically, and the button is hidden for them.
+
+## Light and dark mode
+
+The site follows the visitor's local clock: light from 6:00 to 18:00, dark otherwise. It flips live at those times. The sun/moon button in the nav switches it manually and remembers the choice. The green dot on the button means it's on auto. Picking the mode the clock would choose anyway puts it back on auto. To change the hours, edit `byClock()` in the script at the top of `index.html`.
+
+## Run locally
+
 ```
-
-## Project Structure
-
+python -m http.server 8000   # then open http://localhost:8000
 ```
-src/
-├── components/
-│   ├── animations/    TextReveal, Timeline
-│   ├── background/    AnimatedBackground, Particles (OGL)
-│   ├── buttons/       MagneticButton
-│   ├── cards/         GlassCard, ProjectTile, CertificationCard, ExperienceCard, StatCard
-│   ├── modals/        ExpandableCard, ProjectViewer
-│   ├── navbar/        Navbar
-│   ├── ui/            Badge, ImageCarousel
-│   └── PanelLayout.tsx
-├── data/
-│   └── projectData.ts   single source of truth for all project content
-├── pages/             Home, Education, Experience, Projects, Contact
-├── hooks/
-└── index.css          design tokens, glassmorphism, panel system
-
-public/assets/
-├── achievements/      certificates
-├── education/         degree records
-├── projects/          project screenshots
-├── profile/
-└── resume/
-```
-
-Project content lives in [`src/data/projectData.ts`](src/data/projectData.ts). Certifications
-and roles are defined at the top of their respective page components.
-
-## Featured Projects
-
-| Project | Description | Links |
-| --- | --- | --- |
-| **SlipSense** | Pixel-level landslide susceptibility and runout prediction for Kerala — Random Forest + U-Net over 9 DEM-derived terrain features, with a Leaflet/Cesium GIS dashboard and district SMS alerts | [Code](https://github.com/mccool1010/Slipsense) · [Demo](https://slipsense-ebon.vercel.app/) |
-| **SecureVision AI** | Real-time surveillance platform running 5 deep-learning models (YOLOv8 Pose, MiDaS, SlowFast R50, DeepFace, RetinaFace) behind a Flask/React dashboard | [Code](https://github.com/mccool1010/AI_security_system) · [Demo](https://dist-alpha-ten-64.vercel.app) |
-| **AI Talking Tom** | Fully offline AI companion — Qwen 2.5 3B via llama.cpp, Faster Whisper, Piper TTS, and multimodal emotion detection driving a Godot 4.6 avatar | [Code](https://github.com/mccool1010/AI_talking_tom_V1) |
-| **OrbitGuard** | Spacecraft telemetry anomaly detection with Isolation Forest, diagnosed in natural language by IBM Granite on watsonx.ai | [Code](https://github.com/mccool1010/orbitguard) |
-| **Voice HR Bot** | AI interview simulator with browser voice interaction — Gemini 2.5 Flash behind a Django REST backend | [Code](https://github.com/mccool1010/voice-hr-bot) |
-
-## Contact
-
-- **Email** — harikrishnaarun5@gmail.com
-- **LinkedIn** — https://www.linkedin.com/in/hk7373/
-- **GitHub** — https://github.com/mccool1010

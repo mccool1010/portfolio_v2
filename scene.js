@@ -3,6 +3,13 @@
    draws a single still frame when the visitor prefers reduced motion. */
 (function () {
   const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Visitor's "Pause motion" choice (footer). Paused scenes keep their last frame.
+  const MOTION_KEY = 'hk-motion';
+  let PAUSED = false;
+  try { PAUSED = localStorage.getItem(MOTION_KEY) === 'paused'; } catch (e) {}
+  const runners = new Set();
+  const markRoot = () => { document.documentElement.dataset.motion = PAUSED ? 'paused' : 'on'; };
+  markRoot();
   const DARK = { amber: [255, 181, 71], cyan: [90, 209, 230], mint: [126, 224, 176], coral: [255, 122, 102], ink: [236, 233, 226], violet: [185, 156, 255] };
   const LIGHT = { amber: [156, 89, 0], cyan: [8, 120, 145], mint: [16, 130, 80], coral: [210, 64, 40], ink: [22, 23, 26], violet: [100, 72, 205] };
   const C = { ...DARK };
@@ -37,10 +44,12 @@
   // --- camera ------------------------------------------------------------
   function camera(yaw, pitch, scale, cx, cy, dist = 3.2) {
     const cy_ = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
-    return function (x, y, z) {
+    // pass `out` to write into an existing array instead of allocating one
+    return function (x, y, z, out) {
       const x1 = x * cy_ - z * sy, z1 = x * sy + z * cy_;
       const y2 = y * cp - z1 * sp, z2 = y * sp + z1 * cp;
       const k = dist / (dist + z2);
+      if (out) { out[0] = cx + x1 * k * scale; out[1] = cy - y2 * k * scale; out[2] = k; out[3] = z2; return out; }
       return [cx + x1 * k * scale, cy - y2 * k * scale, k, z2];
     };
   }
@@ -48,33 +57,37 @@
   // --- runner ------------------------------------------------------------
   function run(canvas, draw, opts = {}) {
     const ctx = canvas.getContext('2d');
-    let w = 0, h = 0, dpr = 1, visible = false, raf = 0, t0 = performance.now();
-    const state = { mx: 0, my: 0, dragX: 0, dragY: 0, vx: 0 };
+    let w = 0, h = 0, dpr = 1, visible = false, raf = 0, last = null, lastMs = opts.still ?? 6000;
+    // dt: seconds since the previous frame, so motion runs at the same speed at 30, 60 or 120 Hz
+    const state = { mx: 0, my: 0, dragX: 0, dragY: 0, vx: 0, dt: 1 / 60 };
+    const still = () => !visible || REDUCED || PAUSED;
     function resize() {
       const r = canvas.getBoundingClientRect();
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       w = r.width; h = r.height;
       canvas.width = Math.max(1, w * dpr); canvas.height = Math.max(1, h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      if (REDUCED || !visible) frame(opts.still ?? 6000);
+      if (still()) redraw();
     }
-    function frame(ms) {
+    function frame(ms, dt = 1 / 60) {
       syncTheme();
+      lastMs = ms; state.dt = dt;
       ctx.clearRect(0, 0, w, h);
       draw(ctx, w, h, ms / 1000, state);
     }
+    const redraw = () => frame(lastMs); // the frame on screen now (the still frame until it has played)
     function loop(now) {
-      if (!visible) return;
-      frame(now - t0);
+      if (still()) return;
+      const dt = last == null ? 1 / 60 : Math.min(.1, (now - last) / 1000);
+      last = now;
+      frame(lastMs + dt * 1000, dt);
       raf = requestAnimationFrame(loop);
     }
+    function start() { cancelAnimationFrame(raf); last = null; if (!still()) raf = requestAnimationFrame(loop); }
+    runners.add(start);
     new ResizeObserver(resize).observe(canvas);
-    document.addEventListener('themechange', () => { if (REDUCED || !visible) frame(opts.still ?? 6000); });
-    new IntersectionObserver(([e]) => {
-      visible = e.isIntersecting;
-      cancelAnimationFrame(raf);
-      if (visible && !REDUCED) raf = requestAnimationFrame(loop);
-    }, { rootMargin: '80px' }).observe(canvas);
+    document.addEventListener('themechange', () => { if (still()) redraw(); });
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; start(); }, { rootMargin: '80px' }).observe(canvas);
 
     if (opts.interactive) {
       const host = opts.pointerTarget || canvas;
@@ -86,8 +99,11 @@
       let down = null;
       canvas.addEventListener('pointerdown', (e) => { if (e.pointerType === 'mouse') { down = [e.clientX, e.clientY, state.dragX, state.dragY]; canvas.setPointerCapture(e.pointerId); } });
       canvas.addEventListener('pointermove', (e) => { if (down) { state.dragX = down[2] + (e.clientX - down[0]) * 0.006; state.dragY = clamp(down[3] + (e.clientY - down[1]) * 0.003, -.35, .45); } });
-      canvas.addEventListener('pointerup', () => { down = null; });
-      if (REDUCED) host.addEventListener('pointermove', () => frame(opts.still ?? 6000));
+      const release = () => { down = null; };
+      canvas.addEventListener('pointerup', release);
+      canvas.addEventListener('pointercancel', release);
+      canvas.addEventListener('lostpointercapture', release);
+      host.addEventListener('pointermove', () => { if (REDUCED || PAUSED) redraw(); });
     }
     resize();
   }
@@ -96,14 +112,19 @@
   // HERO: a living terrain point cloud with a slope "scan" sweeping across
   // ======================================================================
   function hero(canvas) {
-    const NX = window.innerWidth < 700 ? 54 : 84, NZ = window.innerWidth < 700 ? 36 : 52;
+    const NX = window.innerWidth < 700 ? 54 : 84, NZ = window.innerWidth < 700 ? 36 : 52, N = NX * NZ;
+    // one set of buffers, overwritten every frame (no per-frame allocation)
+    const PX = new Float32Array(N), PY = new Float32Array(N), PZ = new Float32Array(N), SL = new Float32Array(N);
+    const SX = new Float32Array(N), SY = new Float32Array(N), SK = new Float32Array(N);
+    const tmp = [0, 0, 0, 0];
     let yawS = 0, pitchS = 0;
     run(canvas, (ctx, w, h, t, s) => {
       const mobile = w < 900;
       const scale = mobile ? Math.min(w * .42, 200) : Math.min(w * .26, h * .52);
       const cx = mobile ? w * .5 : w * .72, cy = mobile ? Math.min(h * .22, 230) : h * .52;
-      yawS += ((s.mx * .25 + s.dragX) - yawS) * .05;
-      pitchS += ((s.my * .12 + s.dragY) - pitchS) * .05;
+      const k = 1 - Math.pow(.95, s.dt * 60); // 5% per 60 Hz frame, at any refresh rate
+      yawS += ((s.mx * .25 + s.dragX) - yawS) * k;
+      pitchS += ((s.my * .12 + s.dragY) - pitchS) * k;
       const yaw = -.55 + Math.sin(t * .07) * .22 + yawS;
       const pitch = .62 + pitchS;
       const cam = camera(yaw, pitch, scale, cx, cy, 5);
@@ -116,37 +137,38 @@
       };
       const scanX = ((t * .22) % 1) * 3.6 - 1.8;
       ctx.globalCompositeOperation = blend();
-      const pts = new Array(NX * NZ);
       for (let j = 0; j < NZ; j++) {
         const z = (j / (NZ - 1)) * 2 - 1;
         for (let i = 0; i < NX; i++) {
-          const x = (i / (NX - 1)) * 3.2 - 1.6;
-          const y = height(x, z);
-          const slope = Math.abs(height(x + .05, z) - y) + Math.abs(height(x, z + .05) - y);
-          pts[j * NX + i] = [x, y, z, slope, cam(x, y, z)];
+          const n = j * NX + i, x = (i / (NX - 1)) * 3.2 - 1.6;
+          const y = height(x, z), p = cam(x, y, z, tmp);
+          PX[n] = x; PY[n] = y; PZ[n] = z;
+          SL[n] = Math.abs(height(x + .05, z) - y) + Math.abs(height(x, z + .05) - y);
+          SX[n] = p[0]; SY[n] = p[1]; SK[n] = p[2];
         }
       }
       // contour-ish row lines
       ctx.lineWidth = 1;
+      ctx.strokeStyle = rgba(C.cyan, .07);
       for (let j = 0; j < NZ; j += 2) {
         ctx.beginPath();
-        for (let i = 0; i < NX; i++) { const p = pts[j * NX + i][4]; i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); }
-        ctx.strokeStyle = rgba(C.cyan, .07);
+        for (let i = 0; i < NX; i++) { const n = j * NX + i; i ? ctx.lineTo(SX[n], SY[n]) : ctx.moveTo(SX[n], SY[n]); }
         ctx.stroke();
       }
-      for (const [x, y, z, slope, p] of pts) {
+      for (let n = 0; n < N; n++) {
+        const x = PX[n], y = PY[n], z = PZ[n], slope = SL[n], pk = SK[n];
         const edge = Math.max(0, 1 - (x * x / 2.56 + z * z));
         if (edge <= 0) continue;
         const hgt = clamp((y + .55) / 1.2, 0, 1);
         const near = Math.exp(-Math.pow((x - scanX) * 5, 2));
         const risky = slope > .07;
         let col = mix(C.cyan, C.amber, Math.pow(hgt, 1.3));
-        let a = (.3 + hgt * .7) * Math.min(1, edge * 3) * p[2];
+        let a = (.3 + hgt * .7) * Math.min(1, edge * 3) * pk;
         if (near > .05 && risky) { col = mix(col, C.coral, near); a += near; }
         else a += near * .3;
-        const r = (risky && near > .3 ? 2.6 : 1.7) * p[2];
+        const r = (risky && near > .3 ? 2.6 : 1.7) * pk;
         ctx.fillStyle = rgba(col, clamp(a, 0, 1));
-        ctx.fillRect(p[0] - r / 2, p[1] - r / 2, r, r);
+        ctx.fillRect(SX[n] - r / 2, SY[n] - r / 2, r, r);
       }
       ctx.globalCompositeOperation = 'source-over';
     }, { interactive: true, pointerTarget: canvas.parentElement, still: 9000 });
@@ -163,7 +185,8 @@
     const flows = Array.from({ length: 70 }, () => ({ x: 0, z: 0, life: 0 }));
     const spawn = (f) => { const a = Math.random() * 6.28, r = Math.random() * .35; f.x = Math.cos(a) * r; f.z = Math.sin(a) * r; f.life = 0; f.trail = []; };
     flows.forEach(spawn); flows.forEach((f, i) => (f.life = i * 2));
-    run(canvas, (ctx, w, h, t) => {
+    run(canvas, (ctx, w, h, t, s) => {
+      const f60 = s.dt * 60; // 1 at 60 Hz: steps below are tuned per 60 Hz frame
       const cam = camera(t * .12 + .6, .6, Math.min(w, h) * .44, w / 2, h * .55);
       const grid = [];
       for (let j = 0; j < N; j++) { grid[j] = []; for (let i = 0; i < N; i++) { const x = i / (N - 1) * 2 - 1, z = j / (N - 1) * 2 - 1; const y = H(x, z); grid[j][i] = [x, y, z, cam(x, y, z)]; } }
@@ -181,11 +204,11 @@
       for (let i = 0; i < N; i++) { ctx.beginPath(); for (let j = 0; j < N; j++) { const p = grid[j][i][3]; j ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); } ctx.stroke(); }
       // D8-ish runout: step downhill
       for (const f of flows) {
-        f.life++;
+        f.life += f60;
         if (f.life > 140 || Math.abs(f.x) > 1 || Math.abs(f.z) > 1) { spawn(f); continue; }
         const e = .02, y = H(f.x, f.z);
         const gx = (H(f.x + e, f.z) - y) / e, gz = (H(f.x, f.z + e) - y) / e, g = Math.hypot(gx, gz) || 1;
-        f.x -= gx / g * .012; f.z -= gz / g * .012;
+        f.x -= gx / g * .012 * f60; f.z -= gz / g * .012 * f60;
         f.trail.push([f.x, H(f.x, f.z) + .01, f.z]); if (f.trail.length > 18) f.trail.shift();
         ctx.beginPath();
         f.trail.forEach((q, k) => { const p = cam(q[0], q[1], q[2]); k ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); });
@@ -267,7 +290,7 @@
   scenes.pipeline = function (canvas) {
     const stages = ['data', 'tune', 'track', 'gate', 'serve'];
     const packets = Array.from({ length: 9 }, (_, i) => ({ u: -i * .22, ok: Math.random() > .4 }));
-    run(canvas, (ctx, w, h, t) => {
+    run(canvas, (ctx, w, h, t, s) => {
       const cam = camera(-.5 + Math.sin(t * .2) * .15, .42, Math.min(w * .9, h * 1.2) * .42, w / 2, h * .52);
       const path = (u) => [u * 2.6 - 1.3, Math.sin(u * Math.PI * 2) * .12, Math.cos(u * Math.PI) * .25];
       // track
@@ -289,7 +312,7 @@
       // packets
       let served = 0, rejected = 0;
       for (const k of packets) {
-        k.u += .0035;
+        k.u += .0035 * s.dt * 60;
         if (k.u > 1.05) { k.u = -.1; k.ok = Math.random() > .4; }
         if (k.u < 0) continue;
         let q = path(Math.min(k.u, 1)), col = C.cyan;
@@ -525,5 +548,13 @@
   window.Scenes = {
     hero,
     mount(canvas, kind) { (scenes[kind] || scenes.orb)(canvas); },
+    get paused() { return PAUSED; },
+    reduced: REDUCED,
+    setPaused(v) {
+      PAUSED = !!v;
+      try { PAUSED ? localStorage.setItem(MOTION_KEY, 'paused') : localStorage.removeItem(MOTION_KEY); } catch (e) {}
+      markRoot();
+      runners.forEach((start) => start()); // stops loops (last frame stays) or resumes from it
+    },
   };
 })();

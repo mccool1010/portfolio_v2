@@ -65,7 +65,7 @@ rounded:
   card: "14px"
   chip-cell: "3px"
 spacing:
-  gutter: "20px"
+  gutter: "clamp(20px, 4vw, 48px)"
   card-pad: "36px"
   card-pad-mobile: "22px"
   section: "120px"
@@ -170,9 +170,9 @@ One warm signal on a neutral bench, with four functional data hues that appear o
 
 ## Layout
 
-Single centered column, `min(1120px, 100% - 40px)`. Sections breathe at 120px top padding (88px under 900px). Case studies are two-column cards (copy 1.05fr, visual 1fr) that alternate sides; under 900px they stack with the visual first. The activity and journey blocks are two-column grids that stack under 900px.
+Single centered column, `min(1120px, 100% - 2 × gutter)`; the gutter is fluid, `clamp(20px, 4vw, 48px)` (20px on phones, about 31px at 768, 48px wide). Sections breathe at 120px top padding (88px under 900px). Case studies are two-column cards (copy 1.05fr, visual 1fr) that alternate sides; under 900px they stack with the visual first. The activity and journey blocks are two-column grids that stack under 900px.
 
-The three pages (Work, Open source, Contact) sit side by side on a horizontal track and slide; the container height follows the active page. The nav is a floating pill fixed at the top center; under 900px it stretches to the viewport width minus 16px, drops the monogram, and shortens "Open source" to "OSS". The contact link grid becomes a horizontal scroll-snap carousel with swipe dots under 900px.
+The three pages (Work, Open source, Contact) sit side by side on a horizontal track and slide; the container height follows the active page. The nav is a floating pill fixed at the top center; under 900px it stretches to the viewport width minus 16px, drops the monogram, and shortens "Open source" to "OSS". On Contact under 900px the headline and email come first and the globe follows at 200px; the link grid becomes a horizontal scroll-snap carousel with swipe dots. On wider screens the grid runs three a row, and a short last row shares the full width.
 
 ## Elevation & Depth
 
@@ -209,7 +209,7 @@ Two radii carry the whole system: fully round pills (999px) for every control, t
 - **Internal Padding:** 36px cases (22–26px mobile), 26px panels, 20px tiles.
 
 ### Navigation
-- Floating pill, translucent bench with blur, hairline border. Tabs sit in an inner track with a bone-ink pill that slides between them (0.4s, ease-in-out-quart). Inactive tabs are instrument grey; hover goes to ink. Theme toggle is a 34px round button (sun/moon) with a mint dot when on auto. Hides on scroll down past 300px and returns on scroll up.
+- Floating pill, translucent bench with blur, hairline border. Tabs sit in an inner track with a bone-ink pill that slides between them (0.4s, ease-in-out-quart). Inactive tabs are instrument grey; hover goes to ink. Theme toggle is a 34px round button (sun/moon) with a mint dot when on auto. Tabs are plain page links; the active one carries `aria-current="page"`. Hides on scroll down past 300px and returns on scroll up.
 
 ### Case Study (signature)
 - Copy column: updated-ago readout, title, one-liner, an amber-ruled metric line, amber-dash bullet points, stack chips, Code / Live demo buttons. Visual column: a full-bleed canvas scene on a radial panel gradient, aria-hidden. Enters once on scroll (fade + 24px rise).

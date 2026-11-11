@@ -46,8 +46,12 @@ The site has three tabs that slide sideways: **Work** (`/`), **Open source** (`/
 - **Hide a repo from the grid:** add its name to `hideRepos`.
 - **Nicer title or summary for a repo:** add it to `repoOverrides`, or just give the repo a description on GitHub.
 - **Explain a new open-source PR:** new PRs appear automatically with a generic animation. To add the problem, the fix and a custom animation, add an entry under `prStories` keyed by the PR URL: `headline`, `problem`, `approach`, `tags`, `scene`. Scenes for PRs are `forecast`, `wheels` or `diff`; any project scene works too.
-- **Contact cards:** edit `contactLinks`. The URLs come from `links`.
+- **Contact cards:** edit `contactLinks`. The URLs come from `links`. The `email` entry isn't drawn as a card, because the address and its Copy button already sit above the cards.
 - **Live demo links** are taken from the repo's "Website" field on GitHub automatically.
+
+## Motion
+
+The footer has a **Pause motion** button. It stops the canvas scenes on their current frame and the live-dot pulse, and the browser remembers the choice. Visitors whose system asks for reduced motion get still scenes automatically, and the button is hidden for them.
 
 ## Light and dark mode
 

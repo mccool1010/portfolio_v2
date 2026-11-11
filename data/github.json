@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T21:32:57.714Z",
+  "generated_at": "2026-11-11T21:50:04.519Z",
   "user": {
     "login": "mccool1010",
     "public_repos": 22,
@@ -9,16 +9,15 @@
     {
       "name": "portfolio_v2",
       "summary": "A static site with no framework and no build step. It has an interactive 3D hero and an animated 3D scene for each project, all drawn on canvas without any libraries. Project data syncs itself from GitHub.",
-      "language": "TypeScript",
+      "language": "JavaScript",
       "languages": {
-        "TypeScript": 161453,
-        "HTML": 21956,
-        "CSS": 8462,
-        "JavaScript": 5327
+        "JavaScript": 64179,
+        "CSS": 24694,
+        "HTML": 12859
       },
       "homepage": "https://portfolio-v2-seven-ruddy.vercel.app",
       "stars": 0,
-      "pushed_at": "2026-11-11T21:32:41Z",
+      "pushed_at": "2026-11-11T21:49:22Z",
       "created_at": "2026-08-07T18:01:08Z",
       "url": "https://github.com/mccool1010/portfolio_v2",
       "topics": []
@@ -299,6 +298,22 @@
     }
   ],
   "events": [
+    {
+      "type": "PullRequestEvent",
+      "repo": "mccool1010/portfolio_v2",
+      "at": "2026-11-11T21:49:22Z",
+      "action": "merged",
+      "title": null,
+      "size": null
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": "mccool1010/portfolio_v2",
+      "at": "2026-11-11T21:49:09Z",
+      "action": "opened",
+      "title": null,
+      "size": null
+    },
     {
       "type": "PullRequestEvent",
       "repo": "mccool1010/portfolio_v2",

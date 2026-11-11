@@ -279,6 +279,17 @@
         "packaging",
         "Python wheels"
       ]
+    },
+    "https://github.com/data-privacy-stack/presidio/pull/2476": {
+      "headline": "The type checker rejected the quickstart",
+      "problem": "Running mypy --strict on Presidio's analyze → anonymize quickstart reported errors: the anonymizer engines' constructor was untyped, and a list of PatternRecognizer was rejected where a list of EntityRecognizer was expected (issue #1396).",
+      "approach": "Opened a PR that adds a return type to EngineBase.__init__ and widens ad_hoc_recognizers from List to Sequence. It cuts the quickstart's mypy errors from 3 to 1 with no runtime change; the last one is handled by a separate redesign (#2414).",
+      "tags": [
+        "Python",
+        "mypy",
+        "type hints"
+      ],
+      "scene": "types"
     }
   },
   "contactLinks": [

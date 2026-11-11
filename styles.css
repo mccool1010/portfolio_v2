@@ -53,7 +53,6 @@
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; scrollbar-color: var(--line-2) var(--bg); caret-color: var(--amber); }
 body {
   margin: 0;
-  transition: background-color .3s ease, color .3s ease;
   background: var(--bg);
   color: var(--text);
   font: 400 16px/1.6 var(--sans);
@@ -121,8 +120,9 @@ a { color: inherit; text-decoration: none; }
 .hero-copy a, .hero-copy .pill { pointer-events: auto; }
 .pill { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 28px; padding: 6px 14px 6px 10px; font: 400 13px var(--mono); color: var(--muted); border: 1px solid var(--line); border-radius: 999px; background: rgba(var(--bg-rgb),.6); }
 .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--mint); flex: none; display: inline-block; }
-.dot.live { box-shadow: 0 0 0 0 rgba(126,224,176,.6); animation: ping 2.4s infinite; }
-@keyframes ping { 70% { box-shadow: 0 0 0 8px rgba(126,224,176,0); } 100% { box-shadow: 0 0 0 0 rgba(126,224,176,0); } }
+.dot.live { position: relative; }
+.dot.live::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--mint); opacity: 0; animation: ping 2.4s var(--ease-out) infinite; }
+@keyframes ping { 0% { transform: scale(1); opacity: .6; } 70%, 100% { transform: scale(2.4); opacity: 0; } }
 h1 { margin: 0; font-weight: 500; font-size: clamp(44px, 8vw, 104px); line-height: .95; letter-spacing: -.045em; max-width: 12ch; }
 h1 em { display: block; font: italic 400 1em/1 var(--serif); letter-spacing: -.02em; color: var(--amber); margin-top: .08em; }
 .lede { max-width: 34rem; margin: 28px 0 32px; font-size: clamp(17px, 1.6vw, 19px); color: var(--soft); }
@@ -258,7 +258,7 @@ h2 { margin: 0; font-weight: 500; font-size: clamp(32px, 4.6vw, 52px); line-heig
 
 /* swipe indicator (mobile only) */
 .swipe-dots { display: none; align-items: center; gap: 6px; margin-top: 14px; font: 400 11px var(--mono); color: var(--dim); }
-.swipe-dots i { width: 6px; height: 6px; border-radius: 99px; background: var(--line-2); transition: width .3s, background .3s; }
+.swipe-dots i { width: 6px; height: 6px; border-radius: 99px; background: var(--line-2); transition: width 200ms var(--ease-out), background-color 200ms ease; }
 .swipe-dots i.on { width: 18px; background: var(--amber); }
 .swipe-dots span { margin-left: 6px; transition: opacity .2s ease; }
 @media (max-width: 380px) {
@@ -305,8 +305,12 @@ h2 { margin: 0; font-weight: 500; font-size: clamp(32px, 4.6vw, 52px); line-heig
 .pr-block dd { margin: 0; color: var(--soft-2); font-size: 15px; }
 
 /* SCROLL ENTRANCE: case cards only, and only when JS runs */
-.case { transition: border-color .3s ease, opacity .6s var(--ease-out), transform .6s var(--ease-out); }
-.js .case:not(.in) { opacity: 0; transform: translateY(24px); }
+.case { transition: border-color .3s ease, opacity 450ms var(--ease-out), transform 500ms var(--ease-out); }
+.js .case:not(.in) { opacity: 0; transform: translateY(12px); }
+/* keyboard focus never lands on a card that is still invisible */
+.js .case:focus-within { opacity: 1; transform: none; transition: border-color .3s ease; }
+[tabindex="-1"]:focus { outline: none; }
+@media print { .js .case:not(.in) { opacity: 1; transform: none; } }
 .skeleton { color: transparent !important; background: linear-gradient(90deg, #15181d, #1c2027, #15181d); background-size: 200% 100%; animation: sk 1.4s infinite; border-radius: 6px; }
 @keyframes sk { to { background-position: -200% 0; } }
 
@@ -349,6 +353,7 @@ h2 { margin: 0; font-weight: 500; font-size: clamp(32px, 4.6vw, 52px); line-heig
   .track, .tab-pill, .tabs a { transition: none !important; }
   .nav { transition: opacity .2s ease; }
   .nav.hide { transform: translateX(-50%); }
+  .dot.live::after { animation: none; }
   html { scroll-behavior: auto; }
-  .dot.live, .skeleton { animation: none; }
+  .skeleton { animation: none; }
 }

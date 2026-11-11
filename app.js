@@ -303,6 +303,10 @@
 
   // ---- 3D --------------------------------------------------------------------
   if (window.Scenes) {
+    const mb = $('#motion-btn');
+    const syncMotion = () => { mb.textContent = Scenes.paused ? 'Play motion' : 'Pause motion'; };
+    mb.addEventListener('click', () => { Scenes.setPaused(!Scenes.paused); syncMotion(); });
+    syncMotion();
     Scenes.hero($('#hero-scene'));
     document.querySelectorAll('canvas[data-scene]').forEach((c) => Scenes.mount(c, c.dataset.scene));
   }

@@ -1,0 +1,316 @@
+{
+  "name": "Hari Krishna",
+  "role": "Software Engineer · AI/ML",
+  "githubUser": "mccool1010",
+  "tagline": "I build AI systems that leave the notebook: computer vision, LLM agents and MLOps, shipped end to end with real APIs and real interfaces.",
+  "location": "Malappuram, Kerala, India",
+  "status": "Open to AI/ML and full-stack roles · remote or India",
+  "email": "harikrishnaarun5@gmail.com",
+  "links": {
+    "github": "https://github.com/mccool1010",
+    "linkedin": "https://www.linkedin.com/in/HK7373",
+    "resume": "/resume.pdf",
+    "codeforces": "https://codeforces.com/profile/harikrishna1212",
+    "kaggle": "https://www.kaggle.com/harikrishna1122"
+  },
+  "stats": [
+    {
+      "value": "Top 8%",
+      "label": "in the ICPC 2026 Online Challenge"
+    },
+    {
+      "value": "5",
+      "label": "deep-learning models in one real-time system"
+    },
+    {
+      "auto": "mergedPRs",
+      "label": "PR merged upstream"
+    },
+    {
+      "auto": "lastPush",
+      "label": "last active on GitHub"
+    }
+  ],
+  "featured": [
+    {
+      "repo": "Slipsense",
+      "title": "SlipSense",
+      "scene": "terrain",
+      "oneLiner": "Landslide susceptibility and runout prediction for Kerala, from raw elevation data to SMS alerts.",
+      "metric": {
+        "value": "2-stage",
+        "label": "Random Forest + U-Net pipeline over 9 terrain features"
+      },
+      "points": [
+        "Derives 9 terrain features from CartoDEM/SRTM and scores every pixel into 4 hazard tiers",
+        "D8 flow routing traces where a slide would run once it starts",
+        "React GIS dashboard with Leaflet 2D and Cesium 3D views over a FastAPI + rio-tiler backend",
+        "District-level SMS alerts through Twilio and Fast2SMS; presented at an international conference"
+      ],
+      "stack": [
+        "Python",
+        "U-Net",
+        "Random Forest",
+        "FastAPI",
+        "React",
+        "CesiumJS",
+        "GDAL"
+      ],
+      "demo": "https://slipsense-sage.vercel.app"
+    },
+    {
+      "repo": "AI_security_system",
+      "title": "SecureVision AI",
+      "scene": "pose",
+      "oneLiner": "A surveillance platform that watches activity, pose, depth and faces at once, then scores the risk.",
+      "metric": {
+        "value": "5",
+        "label": "deep-learning models running together on live video"
+      },
+      "points": [
+        "YOLOv8 Pose, MiDaS depth, SlowFast R50 actions, DeepFace and RetinaFace in one pipeline",
+        "Streams MJPEG video and events over Socket.IO to a React 18 dashboard",
+        "Automated risk scoring turns raw detections into alerts a guard can act on"
+      ],
+      "stack": [
+        "PyTorch",
+        "YOLOv8",
+        "MiDaS",
+        "Flask-SocketIO",
+        "React",
+        "Recharts"
+      ],
+      "demo": "https://dist-alpha-ten-64.vercel.app"
+    },
+    {
+      "repo": "AI_talking_tom_V1",
+      "title": "AI Talking Tom",
+      "scene": "orb",
+      "oneLiner": "A voice companion with memory, emotions and a 3D avatar that runs fully offline on a normal PC.",
+      "metric": {
+        "value": "100%",
+        "label": "offline: LLM, speech, vision and avatar all local"
+      },
+      "points": [
+        "Qwen 2.5 3B through llama.cpp, Faster Whisper for speech, Piper for voice",
+        "Reads faces and vocal emotion (DeepFace, YOLOv8, wav2vec2) to shape replies",
+        "Godot 4.6 avatar with 62 animations driven over TCP/JSON from 20+ Python services",
+        "Persistent memory and personality across sessions"
+      ],
+      "stack": [
+        "llama.cpp",
+        "Faster Whisper",
+        "Piper TTS",
+        "Godot",
+        "Python",
+        "React"
+      ]
+    },
+    {
+      "repo": "ml-improvement-platform",
+      "title": "ML Improvement Platform",
+      "scene": "pipeline",
+      "oneLiner": "MLOps platform where a new model only reaches production after it beats the current one on quality gates.",
+      "metric": {
+        "value": "Gated",
+        "label": "model promotion: tuned, tracked, tested, then served"
+      },
+      "points": [
+        "Optuna tuning and MLflow tracking on SBA loan data",
+        "Candidate models must pass quality gates before KServe serves them on Kubernetes",
+        "Prometheus, Grafana and OpenTelemetry for monitoring; GitHub Actions CI"
+      ],
+      "stack": [
+        "MLflow",
+        "Optuna",
+        "FastAPI",
+        "Docker",
+        "Kubernetes",
+        "KServe",
+        "Grafana"
+      ]
+    },
+    {
+      "repo": "agentic-ai-ebook-rag",
+      "title": "Agentic RAG Chatbot",
+      "scene": "embeddings",
+      "oneLiner": "Grounded question answering over a book: the agent checks its own answer against the source before replying.",
+      "metric": {
+        "value": "4-step",
+        "label": "LangGraph loop: retrieve → grade → generate → grounding check"
+      },
+      "points": [
+        "Pinecone vector search over all-MiniLM-L6-v2 embeddings",
+        "Groq-hosted Llama 3.3 70B for generation",
+        "Irrelevant chunks are graded out and unsupported answers are rejected"
+      ],
+      "stack": [
+        "LangGraph",
+        "Pinecone",
+        "Llama 3.3",
+        "Groq",
+        "FastAPI"
+      ]
+    },
+    {
+      "repo": "voice-hr-bot",
+      "title": "Voice HR Bot",
+      "scene": "wave",
+      "oneLiner": "A mock interviewer you talk to: it asks role-specific questions out loud and reacts to your answers.",
+      "metric": {
+        "value": "Voice",
+        "label": "in and out, straight from the browser"
+      },
+      "points": [
+        "Gemini 2.5 Flash with role-aware prompting",
+        "Web Speech API for listening and speaking, no plugins",
+        "React/Vite front end, Django REST back end, deployed on Netlify and Render"
+      ],
+      "stack": [
+        "Gemini",
+        "Django REST",
+        "React",
+        "Web Speech API"
+      ]
+    }
+  ],
+  "repoOverrides": {
+    "orbitguard": {
+      "title": "OrbitGuard",
+      "summary": "AI mission control that detects and diagnoses spacecraft anomalies."
+    },
+    "green-guard-chatbot": {
+      "title": "Green Guard",
+      "summary": "Domain-scoped chatbot for okra cultivation and disease."
+    },
+    "AI-resume-analyzer": {
+      "title": "AI Resume Analyzer",
+      "summary": "Scores a resume against a role and suggests fixes."
+    },
+    "e-commerceapp": {
+      "title": "E-commerce App",
+      "summary": "Full-stack shopping app with auth and product CRUD."
+    },
+    "analyst-product-portfolio": {
+      "title": "Analyst & Product Portfolio",
+      "summary": "Business analysis, project management and product artefacts built from my own projects and public data."
+    }
+  },
+  "hideRepos": [
+    "git",
+    "new_project",
+    "portfolio-page",
+    "portfolio_v2",
+    "portfolio-v3",
+    "githubSession",
+    "gitSession",
+    "hands-on-labs"
+  ],
+  "experience": [
+    {
+      "role": "Full-Stack Developer Intern",
+      "org": "Hexinox Innovations, Kochi",
+      "when": "Jun – Jul 2025",
+      "what": "Built and deployed a React + MongoDB/Supabase shopping platform with auth, password reset and file uploads."
+    },
+    {
+      "role": "Cybersecurity Trainer",
+      "org": "LBS College of Engineering",
+      "when": "Mar 2025",
+      "what": "Taught cryptography to 50+ students; wrote the notes and slides."
+    },
+    {
+      "role": "Cybersecurity Intern",
+      "org": "C-DAC Noida (MeitY)",
+      "when": "Aug – Oct 2024",
+      "what": "Malware analysis in isolated VMs with Cuckoo Sandbox and VirusTotal correlation."
+    }
+  ],
+  "achievements": [
+    {
+      "title": "ICPC 2026 Online Challenge",
+      "detail": "Rank 2,632 of 33,953 on an edge-cloud LLM inference scheduling problem"
+    },
+    {
+      "title": "MediHack 2024",
+      "detail": "2nd place, 24-hour national hackathon"
+    },
+    {
+      "title": "NASA Space Apps 2024",
+      "detail": "Galactic Problem Solver"
+    },
+    {
+      "title": "Kaggle · RSNA Knee",
+      "detail": "0.815 public leaderboard on knee MRI abnormality detection"
+    }
+  ],
+  "education": {
+    "degree": "B.Tech, Computer Science & Engineering",
+    "school": "LBS College of Engineering, Kasaragod (APJ Abdul Kalam Technological University)",
+    "when": "2022 – 2026",
+    "grade": "CGPA 7.42"
+  },
+  "certifications": [
+    "Machine Learning Specialization · Stanford/DeepLearning.AI",
+    "TensorFlow Developer · DeepLearning.AI",
+    "Intro to ML (Elite) · NPTEL",
+    "Ethical Hacking · C-DAC",
+    "Networking Basics · Cisco"
+  ],
+  "prStories": {
+    "https://github.com/sktime/sktime/pull/11236": {
+      "scene": "forecast",
+      "headline": "Forecasts past the training data crashed",
+      "problem": "After statsmodels 0.15, sktime's ARIMA and AutoARIMA forecasters failed when asked to predict beyond the training data on index types statsmodels doesn't support.",
+      "approach": "Fixed the out-of-sample prediction path so those indices are handled again and the forecast comes back on the original index.",
+      "tags": [
+        "Python",
+        "time series",
+        "statsmodels"
+      ]
+    },
+    "https://github.com/pytorch/pytorch/pull/198730": {
+      "scene": "wheels",
+      "headline": "Two builds, one version number",
+      "problem": "PyTorch builds its own Triton wheels, and they carried the same version as upstream Triton, so the two were easy to mix up on the download server (issue #195141).",
+      "approach": "Investigated PyTorch issue #195141 (Triton download server) and opened a PR proposing a fix; maintainers resolved it through a test-infra workflow.",
+      "tags": [
+        "CI/CD",
+        "packaging",
+        "Python wheels"
+      ]
+    }
+  },
+  "contactLinks": [
+    {
+      "key": "email",
+      "label": "Email",
+      "sub": "harikrishnaarun5@gmail.com"
+    },
+    {
+      "key": "linkedin",
+      "label": "LinkedIn",
+      "sub": "linkedin.com/in/HK7373"
+    },
+    {
+      "key": "github",
+      "label": "GitHub",
+      "sub": "github.com/mccool1010"
+    },
+    {
+      "key": "resume",
+      "label": "Resume",
+      "sub": "PDF"
+    },
+    {
+      "key": "codeforces",
+      "label": "Codeforces",
+      "sub": "harikrishna1212"
+    },
+    {
+      "key": "kaggle",
+      "label": "Kaggle",
+      "sub": "harikrishna1122"
+    }
+  ]
+}

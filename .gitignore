@@ -1,25 +1,34 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
+# OS / editor
+.DS_Store
+Thumbs.db
 .vscode/*
 !.vscode/extensions.json
 .idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
 *.sw?
+*.log
 .env
+.env.*
+
+# Leftovers from the old Vite build, in case they come back locally
+node_modules
+dist
+
+# Local Vercel CLI state
+.vercel
+
+# Agent and skill folders (never commit these)
+.claude/
+.agents/
+.agent/
+.cursor/
+.codex/
+.gemini/
+.impeccable/
+.windsurf/
+.aider*
+.continue/
+.roo/
+.cline/
+.kiro/
+.opencode/
+.github/copilot-instructions.md

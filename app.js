@@ -245,10 +245,13 @@
   const tabs = [...document.querySelectorAll('#tabs a')], pill = $('.tab-pill');
   let current = null;
   const fitHeight = () => { if (current) pagesEl.style.height = pages[current].offsetHeight + 'px'; };
-  const movePill = () => {
+  // instant: place the pill without animating (first paint, resize, font swap)
+  const movePill = (instant) => {
     const on = tabs.find((t) => t.dataset.go === current); if (!on) return;
+    if (instant) { pill.style.transition = 'none'; tabs.forEach((t) => (t.style.transition = 'none')); }
     pill.style.width = on.offsetWidth + 'px';
     pill.style.transform = `translateX(${on.offsetLeft}px)`;
+    if (instant) { pill.offsetWidth; requestAnimationFrame(() => { pill.style.transition = ''; tabs.forEach((t) => (t.style.transition = '')); }); }
   };
   function show(name, { instant = false } = {}) {
     if (!ORDER.includes(name)) name = 'work';
@@ -259,8 +262,8 @@
     track.style.transform = `translateX(${-idx * 100 / 3}%)`;
     ORDER.forEach((k) => { pages[k].setAttribute('aria-hidden', String(k !== name)); pages[k].inert = k !== name; });
     tabs.forEach((t) => { t.classList.toggle('on', t.dataset.go === name); t.setAttribute('aria-selected', String(t.dataset.go === name)); });
-    movePill(); fitHeight();
-    if (changed && !instant) scrollTo({ top: 0, behavior: 'instant' in document.documentElement.style ? 'instant' : 'auto' });
+    movePill(instant); fitHeight();
+    if (changed && !instant) scrollTo({ top: 0, behavior: 'instant' });
     document.title = name === 'work' ? 'Hari Krishna · Software Engineer, AI/ML' : `${name === 'contact' ? 'Contact' : 'Open source'} · Hari Krishna`;
     if (instant) requestAnimationFrame(() => { track.style.transition = ''; pagesEl.style.transition = ''; });
   }
@@ -285,9 +288,9 @@
   });
   addEventListener('popstate', route);
   addEventListener('hashchange', route);
-  addEventListener('resize', () => { movePill(); fitHeight(); });
+  addEventListener('resize', () => { movePill(true); fitHeight(); });
   const ro = new ResizeObserver(fitHeight); ORDER.forEach((k) => ro.observe(pages[k]));
-  if (document.fonts) document.fonts.ready.then(() => { movePill(); fitHeight(); });
+  if (document.fonts) document.fonts.ready.then(() => { movePill(true); fitHeight(); });
   show(location.hash.slice(1) || 'work', { instant: true });
 
   // ---- 3D --------------------------------------------------------------------

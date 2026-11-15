@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T22:19:31.741Z",
+  "generated_at": "2026-11-15T06:21:38.950Z",
   "user": {
     "login": "mccool1010",
     "public_repos": 23,
@@ -8,7 +8,7 @@
   "repos": [
     {
       "name": "portfolio_v2",
-      "summary": null,
+      "summary": "A static site with no framework and no build step. It has an interactive 3D hero and an animated 3D scene for each project, all drawn on canvas without any libraries. Project data syncs itself from GitHub.",
       "language": "JavaScript",
       "languages": {
         "JavaScript": 64232,
@@ -17,7 +17,7 @@
       },
       "homepage": "https://portfolio-v2-seven-ruddy.vercel.app",
       "stars": 0,
-      "pushed_at": "2026-11-14T13:28:56Z",
+      "pushed_at": "2026-11-14T22:19:33Z",
       "created_at": "2026-08-07T18:01:08Z",
       "url": "https://github.com/mccool1010/portfolio_v2",
       "topics": []
@@ -36,7 +36,7 @@
     },
     {
       "name": "ml-improvement-platform",
-      "summary": null,
+      "summary": "Live demo: sba-mlops-platform.onrender.com — the operator dashboard over the real production model and its recorded history. Hosted on a free tier that sleeps when idle: the first visit can take up to a minute to wake.",
       "language": "Python",
       "languages": {
         "Python": 825913,
@@ -57,7 +57,7 @@
     },
     {
       "name": "agentic-ai-ebook-rag",
-      "summary": null,
+      "summary": "Answers questions strictly from the Konverge.ai ebook Agentic AI (https://konverge.ai/pdf/Ebook-Agentic-AI.pdf). Every response includes the retrieved source chunks with page numbers and similarity scores, and a confidence value.",
       "language": "Python",
       "languages": {
         "Python": 17123
@@ -87,7 +87,7 @@
     },
     {
       "name": "voice-hr-bot",
-      "summary": null,
+      "summary": "Practise job interviews with an AI interviewer that listens, adapts, and scores every answer.",
       "language": "Python",
       "languages": {
         "Python": 314295,
@@ -108,7 +108,7 @@
     },
     {
       "name": "AI_security_system",
-      "summary": null,
+      "summary": "A full-stack surveillance system: pose and posture, activity recognition, calibrated height measurement and face identification, with one real-time pipeline per camera and a live React dashboard.",
       "language": "Python",
       "languages": {
         "Python": 216769,
@@ -128,7 +128,7 @@
     },
     {
       "name": "AI_talking_tom_V1",
-      "summary": null,
+      "summary": "An AI-powered virtual companion built with Godot 4.6, Python, and local LLMs. Tom listens to you, understands emotions, remembers conversations, and responds with personality.",
       "language": "Python",
       "languages": {
         "Python": 207875,
@@ -149,7 +149,7 @@
     },
     {
       "name": "Slipsense",
-      "summary": null,
+      "summary": "The API sleeps when idle. If overlays are missing on first load, open /health, wait for a response, then reload.",
       "language": "Python",
       "languages": {
         "Python": 464223,
@@ -171,7 +171,7 @@
     },
     {
       "name": "orbitguard",
-      "summary": null,
+      "summary": "Real-time spacecraft telemetry monitoring with ML anomaly detection & IBM watsonx.ai diagnosis",
       "language": "Python",
       "languages": {
         "Python": 166497,
@@ -220,7 +220,7 @@
     },
     {
       "name": "e-commerceapp",
-      "summary": null,
+      "summary": "Boilerplate code for a storefront built with React and Vite.",
       "language": "JavaScript",
       "languages": {
         "JavaScript": 8929,
@@ -530,34 +530,6 @@
   "calendar": {
     "total": 163,
     "days": [
-      [
-        "2025-11-09",
-        0
-      ],
-      [
-        "2025-11-10",
-        0
-      ],
-      [
-        "2025-11-11",
-        0
-      ],
-      [
-        "2025-11-12",
-        0
-      ],
-      [
-        "2025-11-13",
-        0
-      ],
-      [
-        "2025-11-14",
-        0
-      ],
-      [
-        "2025-11-15",
-        0
-      ],
       [
         "2025-11-16",
         0
@@ -2012,6 +1984,10 @@
       ],
       [
         "2026-11-14",
+        0
+      ],
+      [
+        "2026-11-15",
         0
       ]
     ]

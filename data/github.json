@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T06:20:46.378Z",
+  "generated_at": "2026-11-16T21:57:54.317Z",
   "user": {
     "login": "mccool1010",
     "public_repos": 23,
@@ -7,8 +7,20 @@
   },
   "repos": [
     {
+      "name": "accessdesk",
+      "summary": null,
+      "language": null,
+      "languages": {},
+      "homepage": null,
+      "stars": 0,
+      "pushed_at": "2026-11-16T20:06:07Z",
+      "created_at": "2026-11-12T19:00:02Z",
+      "url": "https://github.com/mccool1010/accessdesk",
+      "topics": []
+    },
+    {
       "name": "portfolio_v2",
-      "summary": "A static site with no framework and no build step. It has an interactive 3D hero and an animated 3D scene for each project, all drawn on canvas without any libraries. Project data syncs itself from GitHub.",
+      "summary": null,
       "language": "JavaScript",
       "languages": {
         "JavaScript": 64232,
@@ -17,26 +29,14 @@
       },
       "homepage": "https://portfolio-v2-seven-ruddy.vercel.app",
       "stars": 0,
-      "pushed_at": "2026-11-15T18:47:31Z",
+      "pushed_at": "2026-11-16T06:20:48Z",
       "created_at": "2026-08-07T18:01:08Z",
       "url": "https://github.com/mccool1010/portfolio_v2",
       "topics": []
     },
     {
-      "name": "accessdesk",
-      "summary": null,
-      "language": null,
-      "languages": {},
-      "homepage": null,
-      "stars": 0,
-      "pushed_at": "2026-11-12T19:18:38Z",
-      "created_at": "2026-11-12T19:00:02Z",
-      "url": "https://github.com/mccool1010/accessdesk",
-      "topics": []
-    },
-    {
       "name": "ml-improvement-platform",
-      "summary": "Live demo: sba-mlops-platform.onrender.com — the operator dashboard over the real production model and its recorded history. Hosted on a free tier that sleeps when idle: the first visit can take up to a minute to wake.",
+      "summary": null,
       "language": "Python",
       "languages": {
         "Python": 825913,
@@ -57,7 +57,7 @@
     },
     {
       "name": "agentic-ai-ebook-rag",
-      "summary": "Answers questions strictly from the Konverge.ai ebook Agentic AI (https://konverge.ai/pdf/Ebook-Agentic-AI.pdf). Every response includes the retrieved source chunks with page numbers and similarity scores, and a confidence value.",
+      "summary": null,
       "language": "Python",
       "languages": {
         "Python": 17123
@@ -87,7 +87,7 @@
     },
     {
       "name": "voice-hr-bot",
-      "summary": "Practise job interviews with an AI interviewer that listens, adapts, and scores every answer.",
+      "summary": null,
       "language": "Python",
       "languages": {
         "Python": 314295,
@@ -108,7 +108,7 @@
     },
     {
       "name": "AI_security_system",
-      "summary": "A full-stack surveillance system: pose and posture, activity recognition, calibrated height measurement and face identification, with one real-time pipeline per camera and a live React dashboard.",
+      "summary": null,
       "language": "Python",
       "languages": {
         "Python": 216769,
@@ -128,7 +128,7 @@
     },
     {
       "name": "AI_talking_tom_V1",
-      "summary": "An AI-powered virtual companion built with Godot 4.6, Python, and local LLMs. Tom listens to you, understands emotions, remembers conversations, and responds with personality.",
+      "summary": null,
       "language": "Python",
       "languages": {
         "Python": 207875,
@@ -149,7 +149,7 @@
     },
     {
       "name": "Slipsense",
-      "summary": "The API sleeps when idle. If overlays are missing on first load, open /health, wait for a response, then reload.",
+      "summary": null,
       "language": "Python",
       "languages": {
         "Python": 464223,
@@ -171,7 +171,7 @@
     },
     {
       "name": "orbitguard",
-      "summary": "Real-time spacecraft telemetry monitoring with ML anomaly detection & IBM watsonx.ai diagnosis",
+      "summary": null,
       "language": "Python",
       "languages": {
         "Python": 166497,
@@ -220,7 +220,7 @@
     },
     {
       "name": "e-commerceapp",
-      "summary": "Boilerplate code for a storefront built with React and Vite.",
+      "summary": null,
       "language": "JavaScript",
       "languages": {
         "JavaScript": 8929,
